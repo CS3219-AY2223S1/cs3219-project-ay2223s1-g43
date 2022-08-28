@@ -1,6 +1,6 @@
-import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
-import SignupPage from './components/SignupPage';
-import {Box} from "@mui/material";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Box } from "@mui/material";
+import LandingPage from "./components/LandingPage";
 
 function App() {
     return (
@@ -8,8 +8,8 @@ function App() {
             <Box display={"flex"} flexDirection={"column"} padding={"4rem"}>
                 <Router>
                     <Routes>
-                        <Route exact path="/" element={<Navigate replace to="/signup" />}></Route>
-                        <Route path="/signup" element={<SignupPage/>}/>
+                        <Route exact path="/" element={<LandingPage />}></Route>
+                        {/* <Route path="/signup" element={<SignupPage/>}/> */}
                     </Routes>
                 </Router>
             </Box>
