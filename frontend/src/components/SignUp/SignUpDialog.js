@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-
 const SignUpDialog = (props) => {
   const { dialogTitle, dialogMsg, isSignupSuccess, isDialogOpen, closeDialog } = props;
 
