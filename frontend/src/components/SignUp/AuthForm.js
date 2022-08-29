@@ -68,7 +68,7 @@ const AuthForm = (props) => {
           defaultValue=''
           render={({ field }) =>
             <TextField
-              label="username"
+              label="Username"
               variant="outlined"
               fullWidth
               {...field}
