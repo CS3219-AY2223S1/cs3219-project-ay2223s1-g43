@@ -1,7 +1,13 @@
-import SignupPage from "./SignUp";
+import Header from "../Header";
+import Content from "./Content";
 
 const LandingPage = () => {
-  return <SignupPage/>
+  return (
+    <>
+      <Header />
+      <Content />
+    </>
+  );
 }
 
 export default LandingPage;

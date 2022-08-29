@@ -1,18 +1,25 @@
+import { Container } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Box } from "@mui/material";
 import LandingPage from "./components/LandingPage";
+import Signup from "./components/SignUp";
+
+const sx = {
+    container: {
+        height: "100vh",
+    }
+}
 
 function App() {
     return (
         <div className="App">
-            <Box display={"flex"} flexDirection={"column"} padding={"4rem"}>
+            <Container maxWidth="xl" sx={sx.container}>
                 <Router>
                     <Routes>
                         <Route exact path="/" element={<LandingPage />}></Route>
-                        {/* <Route path="/signup" element={<SignupPage/>}/> */}
+                        <Route path="/signup" element={<Signup />} />
                     </Routes>
                 </Router>
-            </Box>
+            </Container>
         </div>
     );
 }

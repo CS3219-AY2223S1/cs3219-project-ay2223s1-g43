@@ -1,10 +1,19 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
-import { usersAPI } from "../../../api/users";
+import { usersAPI } from "../../api/users";
 import SignUpDialog from "./SignUpDialog";
 import SignUpForm from "./SignUpForm";
 
-const SignupPage = () => {
+const sx = {
+    container: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+    }
+}
+
+const Signup = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [dialogTitle, setDialogTitle] = useState("")
     const [dialogMsg, setDialogMsg] = useState("")
@@ -37,7 +46,7 @@ const SignupPage = () => {
     }
 
     return (
-        <Box display={"flex"} flexDirection={"column"} width={"30%"}>
+        <Box sx={sx.container} >
             <SignUpForm signUp={handleSignup} />
             <SignUpDialog dialogTitle={dialogTitle} dialogMsg={dialogMsg}
                 isSignupSuccess={isSignupSuccess} isDialogOpen={isDialogOpen} closeDialog={closeDialog} />
@@ -45,4 +54,4 @@ const SignupPage = () => {
     )
 }
 
-export default SignupPage;
+export default Signup;
