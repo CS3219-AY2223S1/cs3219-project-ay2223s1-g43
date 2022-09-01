@@ -7,7 +7,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors()); // config cors so that front-end can use
-//app.options('*', cors())
+app.options("*", cors());
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post("/", body("password").isLength({ min: 5 }), createUser);
 router.post("/login", loginUser);
 
 app.use("/api/user", router);
-app.all("*", (_, res) => {
+app.use("/api/user", (_, res) => {
   res.setHeader("content-type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "*");
 });
