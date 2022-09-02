@@ -1,6 +1,7 @@
+import { comparePasswordAndHash, hashPassword } from "./password";
 import { createUser, findUser } from "./repository";
-import { hashPassword, comparePasswordAndHash } from "./password";
 import { createUserToken } from "./auth";
+import { UserData } from "./user-model";
 
 //need to separate orm functions from repository to decouple business logic from persistence
 export async function ormCreateUser(username: string, password: string) {
@@ -15,7 +16,7 @@ export async function ormCreateUser(username: string, password: string) {
   }
 }
 
-export function ormLoginUser(user, password: string) {
+export function ormLoginUser(user: UserData, password: string) {
   console.log(user);
   if (comparePasswordAndHash(password, user.pHash)) {
     return createUserToken(user);

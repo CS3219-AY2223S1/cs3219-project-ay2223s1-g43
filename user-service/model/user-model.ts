@@ -1,11 +1,11 @@
-import { Schema, model } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-export interface User {
+export interface UserData extends Document {
   username: string;
   pHash: string;
 }
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserData>({
   username: {
     type: String,
     required: true,
@@ -17,4 +17,4 @@ const userSchema = new Schema<User>({
   },
 });
 
-export default model<User>("UserModel", userSchema);
+export default model<UserData>("UserModel", userSchema);
