@@ -1,8 +1,8 @@
+import mongoose from "mongoose";
 import UserModel from "./user-model";
 import "dotenv/config";
 
 //Set up mongoose connection
-import mongoose from "mongoose";
 
 const mongoDB =
   process.env.ENV == "PROD"

@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { createUser, loginUser } from "./controller/user-controller";
+import users from "./controller/users";
 import { body } from "express-validator";
 
 const app = express();
@@ -13,8 +13,8 @@ const router = express.Router();
 
 // Controller will contain all the User-defined Routes
 router.get("/", (_, res) => res.send("Hello World from user-service"));
-router.post("/", body("password").isLength({ min: 5 }), createUser);
-router.post("/login", loginUser);
+router.post("/", body("password").isLength({ min: 5 }), users.createUser);
+router.post("/login", users.loginUser);
 
 app.use("/api/user", router);
 app.use("/api/user", (_, res) => {
