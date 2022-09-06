@@ -1,5 +1,5 @@
 import { comparePasswordAndHash, hashPassword } from "./password";
-import { createUser, findUser } from "./repository";
+import { createUser, findUser, updatePassword } from "./repository";
 import { createUserToken } from "./auth";
 import { UserData } from "./user-model";
 
@@ -27,4 +27,10 @@ export function ormLoginUser(user: UserData, password: string) {
 
 export function ormFindUser(username: string) {
   return findUser(username);
+}
+
+export async function ormUpdatePassword(username: string, newPassword: string) {
+  const newPHash = hashPassword(newPassword);
+  const updatedUser = await updatePassword(username, newPHash);
+  return updatedUser;
 }

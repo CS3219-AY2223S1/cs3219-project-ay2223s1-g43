@@ -25,6 +25,9 @@ export default async function loginUser(req, res) {
         .json({ message: error_msg.WRONG_USERNAME_OR_PASSWORD_ERROR });
     }
     return res
+      .cookie("access_token", userToken, {
+        httpOnly: true,
+      })
       .status(200)
       .json({ message: success_msg.LOGIN_SUCCESS_MESSAGE, token: userToken });
   } catch (err) {
