@@ -1,19 +1,22 @@
-import { Stack } from "@mui/material";
-import ActionButtons from "./ActionButtons";
+import { Box, Stack } from "@mui/material";
 import Logo from "./Logo";
 
 const sx = {
   header : {
+    top: 0,
     position: "sticky",
-    zIndex: 100,
+    backgroundColor: "background.default",
     height: "64px",
+    zIndex: 100,
     px: 2,
     borderBottom: 1,
-    borderColor: 'primary.main'
+    borderColor: 'primary.main',
   }
 }
 
-const Header = () => {
+const Header = (props) => {
+  const {rightContent = <Box/>} = props;
+
   return (
   <Stack
     direction="row"
@@ -23,7 +26,7 @@ const Header = () => {
     sx={sx.header}
   >
     <Logo/>
-    <ActionButtons/>
+    {rightContent}
   </Stack>
   )
 }

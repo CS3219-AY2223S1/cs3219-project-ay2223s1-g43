@@ -8,10 +8,7 @@ export const usersAPI = {
     try {
       const res = await axios.post(URL_USER_SVC, { username, password });
       if (res && res.status === STATUS_CODE_CREATED) {
-        // TODO: refactor
-        // Do something
-        // setSuccessDialog('Account successfully created')
-        // setIsSignupSuccess(true)
+        // TODO: set that user has logged in (create authentication context first)
       } else {
         throw new Error()
       }

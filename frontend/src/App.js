@@ -16,7 +16,7 @@ function App() {
             <Container maxWidth="xl" sx={sx.container}>
                 <Router>
                     <Routes>
-                        <Route exact path="/" element={<LandingPage />}></Route>
+                        <Route exact path="/" element={<LandingPage />} />
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/login" element={<Login />} />
                     </Routes>

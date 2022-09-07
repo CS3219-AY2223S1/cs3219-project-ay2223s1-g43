@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
 import { usersAPI } from "../../api/users";
+import Header from "../Header";
 import SignUpDialog from "./SignUpDialog";
 import SignUpForm from "./SignUpForm";
 
@@ -8,7 +9,7 @@ const sx = {
     container: {
         display: "flex",
         justifyContent: "center",
-        py: "160px"
+        py: "128px"
     }
 }
 
@@ -25,7 +26,6 @@ const Signup = () => {
             setSuccessDialog('Account successfully created')
             setIsSignupSuccess(true)
         } catch (err) {
-            console.log(err)
             setErrorDialog(err.message)
         }
     }
@@ -45,11 +45,15 @@ const Signup = () => {
     }
 
     return (
-        <Box sx={sx.container} >
-            <SignUpForm signUp={handleSignup} />
-            <SignUpDialog dialogTitle={dialogTitle} dialogMsg={dialogMsg}
-                isSignupSuccess={isSignupSuccess} isDialogOpen={isDialogOpen} closeDialog={closeDialog} />
-        </Box>
+        <>
+            <Header />
+            <Box sx={sx.container} >
+                <SignUpForm signUp={handleSignup} />
+                <SignUpDialog dialogTitle={dialogTitle} dialogMsg={dialogMsg}
+                    isSignupSuccess={isSignupSuccess} isDialogOpen={isDialogOpen} closeDialog={closeDialog} />
+            </Box>
+        </>
+
     )
 }
 
