@@ -1,10 +1,11 @@
 import Header from "../Header";
+import ActionButtons from "../Header/ActionButtons";
 import Content from "./Content";
 
 const LandingPage = () => {
   return (
     <>
-      <Header />
+      <Header rightContent={<ActionButtons/> } />
       <Content />
     </>
   );

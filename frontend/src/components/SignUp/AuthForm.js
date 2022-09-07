@@ -26,6 +26,7 @@ const sx = {
   }
 }
 
+// TODO: capitalise error messages
 // TODO: consider strengthening form validation
 const schema = yup.object({
   username: yup.string().required(),
