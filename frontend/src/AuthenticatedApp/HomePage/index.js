@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import LogOutButton from "../../components/Header/LogOutButton";
+import AvatarMenu from "../../components/Header/AvatarMenu";
 
 // TODO: implement
 const HomePage = () => {
   return (
     <>
-      <Header rightContent={<LogOutButton />} />
+      <Header rightContent={<AvatarMenu />} />
       <Box>home page</Box>
     </>
   )
