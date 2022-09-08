@@ -57,9 +57,9 @@ export const usersAPI = {
       }
     }
   },
-  handleChangePassword: async (username, oldPassword, newPassword) => {
+  handleChangePassword: async (oldPassword, newPassword) => {
     try {
-      const res = await instance.put(PREFIX_USER_SVC + "/change_password", { username, oldPassword, newPassword });
+      const res = await instance.put(PREFIX_USER_SVC + "/change_password", { oldPassword, newPassword });
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }

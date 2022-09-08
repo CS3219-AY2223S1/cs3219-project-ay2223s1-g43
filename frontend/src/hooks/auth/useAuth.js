@@ -2,7 +2,7 @@ import { useAuthContext } from "./useAuthContext"
 import { usersAPI } from "../../api/users";
 
 const useAuth = () => {
-  const { setLogIn, setLogOut, username } = useAuthContext()
+  const { setLogIn, setLogOut } = useAuthContext()
   const signUp = async (username, password) => {
     await usersAPI.handleSignup(username, password);
   };
@@ -19,7 +19,7 @@ const useAuth = () => {
   }
 
   const changePassword = async (oldPassword, newPassword) => {
-    await usersAPI.handleChangePassword(username, oldPassword, newPassword)
+    await usersAPI.handleChangePassword(oldPassword, newPassword)
   }
 
   return { signUp, logIn, logOut, changePassword }
