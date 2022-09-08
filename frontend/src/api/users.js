@@ -56,5 +56,19 @@ export const usersAPI = {
         throw new ResponseException('Please try again later')
       }
     }
+  },
+  handleChangePassword: async (username, oldPassword, newPassword) => {
+    try {
+      const res = await instance.put(PREFIX_USER_SVC + "/change_password", { username, oldPassword, newPassword });
+      if (!(res && res.status === STATUS_CODE_OKAY)) {
+        throw new Error()
+      }
+    } catch (err) {
+      if (err.response.status === STATUS_CODE_BAD_REQUEST || err.response.status === STATUS_CODE_FORBIDDEN) {
+        throw new ResponseException(err.response.data.message)
+      } else {
+        throw new ResponseException('Please try again later')
+      }
+    }
   }
 }

@@ -103,7 +103,8 @@ const AuthForm = (props) => {
                 label="Password"
               />
               <FormHelperText >{errors.password?.message}</FormHelperText>
-            </FormControl>}
+            </FormControl>
+            }
         />
         <Button variant="outlined" size="large" fullWidth type="submit">
           {formTitle}

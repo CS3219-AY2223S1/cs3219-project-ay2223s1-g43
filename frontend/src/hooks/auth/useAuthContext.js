@@ -4,13 +4,24 @@ export const AuthContext = createContext(null);
 
 export const useAuthContextProvider = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     // TODO: check for refresh token here
   }, [])
 
+  const setLogIn = (username) => {
+    setIsLoggedIn(true)
+    setUsername(username)
+  }
+
+  const setLogOut = () => {
+    setIsLoggedIn(false)
+    setUsername("")
+  }
+
   return {
-    isLoggedIn, setIsLoggedIn
+    username, isLoggedIn, setLogIn, setLogOut,
   };
 };
 
