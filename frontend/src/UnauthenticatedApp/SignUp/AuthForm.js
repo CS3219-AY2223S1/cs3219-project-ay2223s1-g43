@@ -26,11 +26,9 @@ const sx = {
   }
 }
 
-// TODO: capitalise error messages
-// TODO: consider strengthening form validation
 const schema = yup.object({
-  username: yup.string().required(),
-  password: yup.string().required(),
+  username: yup.string().required("No username provided"),
+  password: yup.string().required("No password provided").min(5, "Password should be at least 5 characters"),
 }).required();
 
 const AuthForm = (props) => {

@@ -23,7 +23,7 @@ const SignUpDialog = (props) => {
       <DialogActions>
         {isSignupSuccess
           ? <Button component={Link} to="/login">Log in</Button>
-          : <Button onClick={closeDialog}>Done</Button>
+          : <Button onClick={closeDialog}>Okay</Button>
         }
       </DialogActions>
     </Dialog>);

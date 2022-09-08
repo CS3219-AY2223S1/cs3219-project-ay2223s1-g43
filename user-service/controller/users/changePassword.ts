@@ -4,7 +4,6 @@ import {
   ormLoginUser,
   ormUpdatePassword,
 } from "../../model/user-orm";
-import { validationResult } from "express-validator";
 
 export default async function changePassword(req, res) {
   //todo add validation
@@ -19,7 +18,6 @@ export default async function changePassword(req, res) {
       return res.status(400).json({ message: error_msg.INVALID_USER_ERROR });
     }
     const userToken = await ormLoginUser(user, oldPassword);
-    console.log(userToken);
     if (!userToken) {
       return res.status(400).json({ message: error_msg.WRONG_PASSWORD_ERROR });
     }
