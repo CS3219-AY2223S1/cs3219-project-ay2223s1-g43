@@ -1,9 +1,10 @@
 import { Container } from "@mui/material";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import Login from "./components/Login";
-import Signup from "./components/SignUp";
-
+import AuthenticatedApp from "./AuthenticatedApp";
+import {
+    AuthContext,
+    useAuthContextProvider,
+} from "./hooks/auth/useAuthContext";
+import UnauthenticatedApp from "./UnauthenticatedApp";
 const sx = {
     container: {
         height: "100vh",
@@ -11,18 +12,18 @@ const sx = {
 }
 
 function App() {
+    const authContextValue = useAuthContextProvider();
+    const { isLoggedIn } = authContextValue;
+
     return (
-        <div className="App">
-            <Container maxWidth="xl" sx={sx.container}>
-                <Router>
-                    <Routes>
-                        <Route exact path="/" element={<LandingPage />} />
-                        <Route path="/signup" element={<Signup />} />
-                        <Route path="/login" element={<Login />} />
-                    </Routes>
-                </Router>
-            </Container>
-        </div>
+        <AuthContext.Provider value={authContextValue}>
+            <div className="App">
+                <Container maxWidth="xl" sx={sx.container}>
+                    {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+                </Container>
+            </div>
+        </AuthContext.Provider>
+
     );
 }
 

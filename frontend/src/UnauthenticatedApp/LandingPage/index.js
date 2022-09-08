@@ -1,5 +1,5 @@
-import Header from "../Header";
-import ActionButtons from "../Header/ActionButtons";
+import Header from "../../components/Header";
+import ActionButtons from "../../components/Header/ActionButtons";
 import Content from "./Content";
 
 const LandingPage = () => {

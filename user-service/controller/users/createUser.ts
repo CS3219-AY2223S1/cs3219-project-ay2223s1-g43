@@ -26,11 +26,9 @@ export default async function createUser(req, res) {
         .status(201)
         .json({ message: success_msg.CREATE_SUCCESS_MESSAGE });
     } else {
-      console.log(resp);
       return res.status(400).json({ message: error_msg.CREATION_ERROR });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ message: error_msg.DATABASE_ERROR });
   }
 }

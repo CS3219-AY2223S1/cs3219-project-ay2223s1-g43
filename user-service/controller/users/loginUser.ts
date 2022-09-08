@@ -18,7 +18,6 @@ export default async function loginUser(req, res) {
         .json({ message: error_msg.WRONG_USERNAME_OR_PASSWORD_ERROR });
     }
     const userToken = await ormLoginUser(user, password);
-    console.log(userToken);
     if (!userToken) {
       return res
         .status(400)

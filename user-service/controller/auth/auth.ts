@@ -2,7 +2,6 @@ import { checkToken } from "../../model/auth";
 
 export function authorization(req, res, next) {
   const token = req.cookies.access_token;
-  console.log(token);
   if (!token) {
     return res.status(403).json({ message: "Unauthorized access" });
   }

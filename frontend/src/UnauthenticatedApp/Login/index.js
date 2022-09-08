@@ -1,7 +1,10 @@
 import { Box, Divider, Link, Stack } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import Header from "../Header";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/auth/useAuth";
+import Header from "../../components/Header";
 import AuthForm from "../SignUp/AuthForm";
+import { useState } from "react";
+import WarningDialog from "../../components/WarningDialog";
 
 const sx = {
     container: {
@@ -18,9 +21,26 @@ const sx = {
 }
 
 const Login = () => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [dialogMsg, setDialogMsg] = useState("")
+    const { logIn } = useAuth()
+    const navigate = useNavigate();
+
     const handleLogin = async (username, password) => {
-        // TODO: add and call login API
+        try {
+            await logIn(username, password)
+            navigate("/");
+        } catch (err) {
+            setErrorDialog(err.message)
+        }
     }
+
+    const setErrorDialog = (msg) => {
+        setDialogMsg(msg)
+        setIsDialogOpen(true)
+    }
+
+    const closeDialog = () => setIsDialogOpen(false)
 
     return (
         <>
@@ -39,6 +59,11 @@ const Login = () => {
                         Don't have an account? Sign up here
                     </Link>
                 </Stack>
+                <WarningDialog
+                    dialogMsg={dialogMsg}
+                    isDialogOpen={isDialogOpen}
+                    closeDialog={closeDialog}
+                />
             </Box>
         </>
 

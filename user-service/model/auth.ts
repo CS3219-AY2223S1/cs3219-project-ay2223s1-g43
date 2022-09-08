@@ -16,7 +16,6 @@ export function createUserToken(user: UserData) {
 }
 
 export function checkToken(token: string) {
-  console.log(token);
   const data = jsonwebtoken.verify(token, SECRET_KEY) as TokenPayload;
   return data;
 }

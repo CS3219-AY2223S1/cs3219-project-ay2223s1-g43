@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
-import { usersAPI } from "../../api/users";
-import Header from "../Header";
+import useAuth from "../../hooks/auth/useAuth";
+import Header from "../../components/Header";
 import SignUpDialog from "./SignUpDialog";
 import SignUpForm from "./SignUpForm";
 
@@ -19,10 +19,12 @@ const Signup = () => {
     const [dialogMsg, setDialogMsg] = useState("")
     const [isSignupSuccess, setIsSignupSuccess] = useState(false)
 
+    const { signUp } = useAuth()
+
     const handleSignup = async (username, password) => {
         setIsSignupSuccess(false)
         try {
-            await usersAPI.handleSignup(username, password);
+            await signUp(username, password);
             setSuccessDialog('Account successfully created')
             setIsSignupSuccess(true)
         } catch (err) {
@@ -33,15 +35,15 @@ const Signup = () => {
     const closeDialog = () => setIsDialogOpen(false)
 
     const setSuccessDialog = (msg) => {
-        setIsDialogOpen(true)
         setDialogTitle('Success')
         setDialogMsg(msg)
+        setIsDialogOpen(true)
     }
 
     const setErrorDialog = (msg) => {
-        setIsDialogOpen(true)
         setDialogTitle('Error')
         setDialogMsg(msg)
+        setIsDialogOpen(true)
     }
 
     return (

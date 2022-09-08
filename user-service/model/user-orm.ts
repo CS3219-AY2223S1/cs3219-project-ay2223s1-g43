@@ -11,13 +11,11 @@ export async function ormCreateUser(username: string, password: string) {
     await newUser.save();
     return null;
   } catch (err: any) {
-    console.log(err);
     return { err };
   }
 }
 
 export function ormLoginUser(user: UserData, password: string) {
-  console.log(user);
   if (comparePasswordAndHash(password, user.pHash)) {
     return createUserToken(user);
   } else {
