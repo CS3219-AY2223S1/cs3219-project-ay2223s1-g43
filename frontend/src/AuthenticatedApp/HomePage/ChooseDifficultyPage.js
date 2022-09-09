@@ -1,5 +1,6 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DifficultyCard from "./DifficultyCard";
 
 const sx = {
@@ -16,6 +17,15 @@ const DIFFICULTIES = [
 
 const ChooseDifficultyPage = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const navigate = useNavigate();
+
+  const startSession = () => {
+    console.log(DIFFICULTIES[selectedDifficulty].name)
+
+    const difficulty = ("/" + DIFFICULTIES[selectedDifficulty].name).toLowerCase();
+
+    navigate("/matching" + difficulty)
+  }
 
   return (
     <Box sx={sx.container}>
@@ -28,6 +38,7 @@ const ChooseDifficultyPage = () => {
         <Typography variant="h4" sx={sx.typography}>Choose a difficulty</Typography>
         {DIFFICULTIES.map(d =>
           <DifficultyCard
+            key={d.name}
             cardContent={d.name}
             iconColor={d.iconColor}
             selected={selectedDifficulty === d.index}
@@ -35,12 +46,18 @@ const ChooseDifficultyPage = () => {
           />
         )}
         <Box sx={sx.buttonBox}>
-          <Button variant="contained" size="large" disabled={selectedDifficulty === null}>Start Session</Button>
+          <Button
+            variant="contained"
+            size="large"
+            disabled={selectedDifficulty === null}
+            onClick={startSession}
+          >
+            Start Session
+          </Button>
         </Box>
       </Stack>
     </Box>
   )
-
 }
 
 export default ChooseDifficultyPage;
