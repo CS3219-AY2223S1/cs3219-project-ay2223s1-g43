@@ -1,19 +1,29 @@
-import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
-import SignupPage from './components/SignupPage';
-import {Box} from "@mui/material";
+import { Container } from "@mui/material";
+import AuthenticatedApp from "./AuthenticatedApp";
+import {
+    AuthContext,
+    useAuthContextProvider,
+} from "./hooks/auth/useAuthContext";
+import UnauthenticatedApp from "./UnauthenticatedApp";
+const sx = {
+    container: {
+        height: "100vh",
+    }
+}
 
 function App() {
+    const authContextValue = useAuthContextProvider();
+    const { isLoggedIn } = authContextValue;
+
     return (
-        <div className="App">
-            <Box display={"flex"} flexDirection={"column"} padding={"4rem"}>
-                <Router>
-                    <Routes>
-                        <Route exact path="/" element={<Navigate replace to="/signup" />}></Route>
-                        <Route path="/signup" element={<SignupPage/>}/>
-                    </Routes>
-                </Router>
-            </Box>
-        </div>
+        <AuthContext.Provider value={authContextValue}>
+            <div className="App">
+                <Container maxWidth="xl" sx={sx.container}>
+                    {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+                </Container>
+            </div>
+        </AuthContext.Provider>
+
     );
 }
 
