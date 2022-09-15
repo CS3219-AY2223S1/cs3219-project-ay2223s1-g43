@@ -34,6 +34,11 @@ export async function updatePassword(username: string, newPHash: string) {
     {
       new: true,
     }
-  );
+  ).exec();
+  return user;
+}
+
+export async function deleteUser(username: string) {
+  const user = await userModel.findOneAndDelete({ username: username }).exec();
   return user;
 }

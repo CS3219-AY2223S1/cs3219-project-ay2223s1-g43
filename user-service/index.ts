@@ -27,6 +27,7 @@ router.get("/", (_, res) => {
 });
 
 router.post("/", body("password").isLength({ min: 5 }), users.createUser);
+router.delete("/", auth.authorization, users.deleteUser);
 router.post("/login", users.loginUser);
 router.get("/logout", auth.authorization, (_, res) => {
   return res
