@@ -8,7 +8,6 @@ export default async function deleteUser(req, res) {
     if (!deletedUser) {
       return res.status(500).json({ message: error_msg.DATABASE_ERROR });
     }
-    console.log(deletedUser);
     return res
       .clearCookie("access_token")
       .status(200)

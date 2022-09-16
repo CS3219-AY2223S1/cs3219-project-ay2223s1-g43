@@ -18,11 +18,16 @@ const useAuth = () => {
     setLogOut()
   }
 
+  const deleteAccount = async () => {
+    await usersAPI.handleDeleteAccount();
+    setLogOut()
+  }
+
   const changePassword = async (oldPassword, newPassword) => {
     await usersAPI.handleChangePassword(oldPassword, newPassword)
   }
 
-  return { signUp, logIn, logOut, changePassword }
+  return { signUp, logIn, logOut, deleteAccount, changePassword }
 }
 
 export default useAuth;

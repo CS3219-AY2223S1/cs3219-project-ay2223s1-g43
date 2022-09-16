@@ -10,11 +10,13 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
+import useAuth from "../../../hooks/auth/useAuth";
 import { useAuthContext } from "../../../hooks/auth/useAuthContext";
 
 const DeleteAccountModal = (props) => {
   const { isDialogOpen, closeDialog } = props;
   const { username } = useAuthContext()
+  const {deleteAccount} = useAuth()
 
   const [textValue, setTextValue] = useState("");
 
@@ -22,8 +24,8 @@ const DeleteAccountModal = (props) => {
     setTextValue(event.target.value);
   };
 
-  const deleteAccount = () => {
-    // TODO: connect to API
+  const deleteUserAccount = async () => {
+    await deleteAccount()
   }
 
   return (
@@ -54,7 +56,7 @@ const DeleteAccountModal = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
-        <Button disabled={textValue !== username} >Confirm</Button>
+        <Button disabled={textValue !== username} onClick={deleteUserAccount}>Confirm</Button>
       </DialogActions>
     </Dialog>
   );
