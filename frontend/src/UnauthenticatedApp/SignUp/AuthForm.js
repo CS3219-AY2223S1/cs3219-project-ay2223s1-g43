@@ -36,7 +36,7 @@ const AuthForm = (props) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmission = async (data) => {
-    await submitForm(data.username, data.password)
+    await submitForm(data.username.trim(), data.password)
   }
 
   const handleClickShowPassword = () => {

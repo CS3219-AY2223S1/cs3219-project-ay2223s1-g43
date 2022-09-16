@@ -4,7 +4,8 @@ import {
   STATUS_CODE_CONFLICT,
   STATUS_CODE_CREATED,
   STATUS_CODE_BAD_REQUEST,
-  STATUS_CODE_FORBIDDEN
+  STATUS_CODE_FORBIDDEN,
+  STATUS_CODE_INTERNAL_SERVER_ERROR,
 } from "./responses";
 import { ResponseException } from "./responses";
 
@@ -65,6 +66,20 @@ export const usersAPI = {
       }
     } catch (err) {
       if (err.response.status === STATUS_CODE_BAD_REQUEST || err.response.status === STATUS_CODE_FORBIDDEN) {
+        throw new ResponseException(err.response.data.message)
+      } else {
+        throw new ResponseException('Please try again later')
+      }
+    }
+  },
+  handleDeleteAccount: async () => {
+    try {
+      const res = await instance.delete(PREFIX_USER_SVC);
+      if (!(res && res.status === STATUS_CODE_OKAY)) {
+        throw new Error()
+      }
+    } catch (err) {
+      if (err.response.status === STATUS_CODE_INTERNAL_SERVER_ERROR) {
         throw new ResponseException(err.response.data.message)
       } else {
         throw new ResponseException('Please try again later')

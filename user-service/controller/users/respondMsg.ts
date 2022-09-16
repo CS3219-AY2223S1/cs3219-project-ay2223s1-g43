@@ -12,6 +12,7 @@ export const error_msg = {
 
 export const success_msg = {
   CREATE_SUCCESS_MESSAGE: "New user created successfully!",
+  DELETE_SUCCESS_MESSAGE: "User deleted successfully!",
   LOGIN_SUCCESS_MESSAGE: "Login successfully!",
   PASSWORD_UPDATED_SUCCESS_MESSAGE: "Password updated successfully!",
 };

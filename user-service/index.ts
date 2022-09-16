@@ -16,8 +16,8 @@ app.use(
     credentials: true,
     // TODO: fix this to rely on ORIGIN_URL
     origin: /http:\/\/localhost:3000\/*/,
-  }
-));
+  })
+);
 
 const router = express.Router();
 
@@ -27,6 +27,7 @@ router.get("/", (_, res) => {
 });
 
 router.post("/", body("password").isLength({ min: 5 }), users.createUser);
+router.delete("/", auth.authorization, users.deleteUser);
 router.post("/login", users.loginUser);
 router.get("/logout", auth.authorization, (_, res) => {
   return res
