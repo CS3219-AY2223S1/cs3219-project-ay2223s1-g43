@@ -8,30 +8,30 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const MatchingPage = () => {
   const [findingMatch, setFindingMatch] = useState(true);
-  const { username : userName } = useAuthContext()
+  const { username: userName } = useAuthContext()
   const { difficulty } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     socket.on('disconnect', () => {
-      socket.emit('user disconnected', {userName});
+      socket.emit('user disconnected', { userName });
     });
 
-    socket.emit('user finding match', {userName, difficulty});
+    socket.emit('user finding match', { userName, difficulty });
 
     return () => {
       socket.off('disconnect')
-      socket.emit('matching timer expired', {userName});
+      socket.emit('matching timer expired', { userName });
     }
   }, [])
 
   const setTimerExpired = () => {
-    socket.emit('matching timer expired', {userName});
+    socket.emit('matching timer expired', { userName });
     setFindingMatch(false)
   }
 
   const tryAgain = () => {
-    socket.emit('user finding match', {userName, difficulty});
+    socket.emit('user finding match', { userName, difficulty });
     setFindingMatch(true)
   }
 

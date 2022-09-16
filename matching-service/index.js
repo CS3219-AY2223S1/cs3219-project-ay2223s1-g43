@@ -1,6 +1,5 @@
 const { createServer } = require('http');
-const { models, deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable, insertNewMatch } = require('./matching-orm')
-// import { sequelize } from './repository.js';
+const { deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable, insertNewMatch } = require('./matching-orm')
 const { sequelize } = require('./repository.js')
 
 const { Server } = require("socket.io");
@@ -13,7 +12,6 @@ const io = new Server(httpServer, {
     origin: 'http://localhost:3000' // might need to change this later
   }
 })
-
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -94,7 +92,6 @@ io.on("connection", (socket) => {
   })
 
 })
-
 
 
 sequelize.sync({ alter: true }).then(() => httpServer.listen(8001))
