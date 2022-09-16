@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuthContext } from "../../../hooks/auth/useAuthContext";
 import WarningDialog from "../../WarningDialog";
 import ChangePasswordModal from "./ChangePasswordModal";
+import DeleteAccountModal from "./DeleteAccountModal";
 import LogOutButton from "./LogOutButton";
 
 const sx = {
@@ -30,6 +31,7 @@ const AvatarMenu = () => {
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false)
   const [errorDialogMsg, setErrorDialogMsg] = useState("")
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false)
+  const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,6 +49,7 @@ const AvatarMenu = () => {
 
   const closePasswordModal = () => setIsChangePasswordModalOpen(false)
 
+  const closeDeleteAccountModal = () => setIsDeleteAccountModalOpen(false)
 
   return (
     <>
@@ -78,10 +81,14 @@ const AvatarMenu = () => {
         <MenuItem onClick={() => setIsChangePasswordModalOpen(true)}>
           Change Password
         </MenuItem>
+        <MenuItem onClick={() => setIsDeleteAccountModalOpen(true)}>
+          Delete Account
+        </MenuItem>
         <LogOutButton setErrorDialog={setErrorDialog} />
       </Menu>
       <WarningDialog dialogMsg={errorDialogMsg} isDialogOpen={isErrorDialogOpen} closeDialog={closeErrorDialog} />
       <ChangePasswordModal isDialogOpen={isChangePasswordModalOpen} closeDialog={closePasswordModal} />
+      <DeleteAccountModal isDialogOpen={isDeleteAccountModalOpen} closeDialog={closeDeleteAccountModal} />
     </>
   );
 }
