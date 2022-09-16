@@ -28,13 +28,15 @@ export async function findUser(username: string) {
 }
 
 export async function updatePassword(username: string, newPHash: string) {
-  const user = await userModel.findOneAndUpdate(
-    { username: username },
-    { pHash: newPHash },
-    {
-      new: true,
-    }
-  ).exec();
+  const user = await userModel
+    .findOneAndUpdate(
+      { username: username },
+      { pHash: newPHash },
+      {
+        new: true,
+      }
+    )
+    .exec();
   return user;
 }
 

@@ -16,8 +16,8 @@ app.use(
     credentials: true,
     // TODO: fix this to rely on ORIGIN_URL
     origin: /http:\/\/localhost:3000\/*/,
-  }
-));
+  })
+);
 
 const router = express.Router();
 
