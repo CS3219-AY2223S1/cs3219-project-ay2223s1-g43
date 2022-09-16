@@ -1,9 +1,12 @@
-import express from 'express';
-import cors from 'cors';
-import { createServer } from 'http';
-import models, { deletePendingMatch, insertNewPendingMatch, isMatchAvailable, sequelize } from './matching-orm';
-const { Server } = require("socket.io");
+const { createServer } = require('http');
+const { models, deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable, insertNewMatch } = require('./matching-orm')
+// import { sequelize } from './repository.js';
+const { sequelize } = require('./repository.js')
 
+const { Server } = require("socket.io");
+const express = require('express');
+const cors = require('cors')
+const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
@@ -11,14 +14,14 @@ const io = new Server(httpServer, {
   }
 })
 
-const app = express();
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors()) // config cors so that front-end can use
 app.options('*', cors())
 
 // socket array
-const socketArr = [] // an element will look like { socketId: ___, userName: ___ }
+let socketArr = [] // an element will look like { socketId: ___, userName: ___ }
 
 const addSocketObj = (userName, socketId) => {
   socketArr = socketArr.filter(socketObj => socketObj.userName !== userName);
@@ -37,30 +40,24 @@ const getSocketIdForUser = (userName) => {
 
 io.on("connection", (socket) => {
 
-  socket.on('user finding match', ({ userName, difficulty }) => {
+  socket.on('user finding match', async ({ userName, difficulty }) => {
     try {
       // add a socket object for this user to the socket array if he doesnt have one
       addSocketObj(userName, socket.id);
 
-      const matchResult = !isMatchAvailable(difficulty)
+      const matchResult = await isMatchAvailable(difficulty)
 
       if (!matchResult) {
-        /* no match was found, so we emit an event to this user's frontend for them to start a 30s timer, and add this user to db as
-          a pending match*/
+        /* no match was found, so add this user to db as a pending match*/
         // we might replace adding and removing from db with a queue implementation instead to save on db calls
-        
-        // 1. emit an event to this user's frontend
-        io.to(socket.id).emit('no immediate match found');
-
-        // 2. add this user to db as a pending match
         await insertNewPendingMatch(userName, difficulty);
 
       } else {
         // match is found, we want to emit an event to both users who are matched
         const matchedUserName = matchResult.userName;
-
         // 1. Delete the user who is currently a pending match
         await deletePendingMatch(userName);
+        await insertNewMatch(userName, matchedUserName, difficulty);
 
         // 2. Send an event to both user's frontend that includes each other's socketId
         const socketIdOfUser1 = getSocketIdForUser(matchedUserName);
@@ -77,20 +74,27 @@ io.on("connection", (socket) => {
   });
 
   // frontend MUST emit this event upon timer timing out
-  socket.on('matching timer expired', ({ userName }) => {
+  socket.on('matching timer expired', async ({ userName }) => {
     // just need to delete pending match for this user
     await deletePendingMatch(userName);
   })
 
   // frontend MUST emit this event in callback function that is called upon the 'disconnect' event
-  socket.on('user disconnected', ({ userName }) => {
+  socket.on('user disconnected', async ({ userName }) => {
+    console.log("user disconnected")
     await deletePendingMatch(userName);
-
+    await deleteMatch(userName);
     socketArr = socketArr.filter(socketObj => socketObj.userName !== userName);
+  })
+
+  // frontend MUST emit this event when a user that is matched has logged out or chose to leave the room
+  socket.on('user leave room', async ({ userName }) => {
+    console.log(`user with username ${userName} has left the room`);
+    await deleteMatch(userName);
   })
 
 })
 
 
 
-sequelize.sync().then(() => httpServer.listen(8001))
+sequelize.sync({ alter: true }).then(() => httpServer.listen(8001))

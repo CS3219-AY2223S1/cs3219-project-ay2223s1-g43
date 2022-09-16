@@ -1,16 +1,16 @@
-export default function getMatchModel(sequelize, DataTypes) {
+exports.getMatchModel = (sequelize, DataTypes) => {
   
   const Match = sequelize.define('Match', {
 
-    userId_1: {
-      type: DataTypes.BIGINT,
+    userName1: {
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       primaryKey: true,
     },
 
-    userId_2: {
-      type: DataTypes.BIGINT,
+    userName2: {
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       primaryKey: true,
@@ -24,5 +24,7 @@ export default function getMatchModel(sequelize, DataTypes) {
       },
     }
   })
+
+  return Match;
 }
 

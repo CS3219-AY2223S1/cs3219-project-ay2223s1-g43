@@ -1,13 +1,14 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const getMatchModel = require('./model/match');
-const getPendingMatchModel = require('./model/pending-match');
 require('dotenv').config();
+
+const { Sequelize, DataTypes } = require('sequelize');
 
 const { PG_DB_NAME, PG_USER, PG_PASSWORD, PG_HOST } = process.env
 
-const sequelize = new Sequelize(PG_DB_NAME, PG_USER, PG_PASSWORD, {
+exports.sequelize = new Sequelize(PG_DB_NAME, PG_USER, PG_PASSWORD, {
   host: PG_HOST,
   dialect: 'postgres'
 })
 
-export { sequelize, DataTypes }
+exports.DataTypes = DataTypes;
+
+// module.exports = { sequelize, DataTypes }

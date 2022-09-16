@@ -1,12 +1,17 @@
-import { sequelize, DataTypes } from "./repository";
+// import { sequelize, DataTypes } from "./repository.js";
+const { sequelize, DataTypes } = require('./repository.js')
+const { getMatchModel } = require('./model/match');
+const { getPendingMatchModel } = require('./model/pending-match');
 
 const models = {
   Match: getMatchModel(sequelize, DataTypes),
   PendingMatch: getPendingMatchModel(sequelize, DataTypes),
 }
 
+exports.models = models;
+
 // Returns a Model instance of the Pending Match obj that is available for matching at the specified difficulty
-export const isMatchAvailable = async (difficulty) => {
+exports.isMatchAvailable = async (difficulty) => {
   const result = await models.PendingMatch.findOne({
     where: {
       difficulty: difficulty
@@ -20,17 +25,32 @@ export const isMatchAvailable = async (difficulty) => {
   }
 }
 
-export const insertNewPendingMatch = async (userName, difficulty) => {
+exports.insertNewPendingMatch = async (userName, difficulty) => {
   return await models.PendingMatch.create({
     userName,
     difficulty,
   })
 }
 
-export const deletePendingMatch = async (userName) => {
+exports.deletePendingMatch = async (userName) => {
   return await models.PendingMatch.destroy({
     where: { userName: userName }
   })
 }
 
-export default models;
+exports.insertNewMatch = async (userName1, userName2, difficulty) => {
+  return await models.Match.create({
+    userName1,
+    userName2,
+    difficulty
+  })
+}
+
+exports.deleteMatch = async (userName) => {
+  await models.Match.destroy({
+    where: { userName1: userName }
+  })
+  await models.Match.destroy({
+    where: { userName2: userName }
+  })
+}

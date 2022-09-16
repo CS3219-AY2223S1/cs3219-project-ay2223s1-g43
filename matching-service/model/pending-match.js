@@ -1,4 +1,4 @@
-export default function getPendingMatchModel(sequelize, DataTypes) {
+exports.getPendingMatchModel = (sequelize, DataTypes) => {
   const PendingMatch = sequelize.define("PendingMatch", {
     userName: {
       type: DataTypes.STRING,
@@ -16,4 +16,6 @@ export default function getPendingMatchModel(sequelize, DataTypes) {
     },
 
   })
+
+  return PendingMatch;
 }
