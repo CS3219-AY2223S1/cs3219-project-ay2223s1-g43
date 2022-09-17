@@ -54,3 +54,27 @@ exports.deleteMatch = async (userName) => {
     where: { userName2: userName }
   })
 }
+
+exports.getNameOfUserMatchedTo = async (userName) => {
+  let result = await models.Match.findOne({
+    where: {
+      userName1: userName
+    }
+  })
+
+  if (result === null) {
+    result = await models.Match.findOne({
+      where: {
+        userName2: userName
+      }
+    })
+
+    if (result === null) {
+      return result;
+    }
+    return result.userName1;
+
+  } else {
+    return result.userName2;
+  }
+}

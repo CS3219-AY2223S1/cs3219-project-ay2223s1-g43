@@ -1,5 +1,5 @@
 const { createServer } = require('http');
-const { deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable, insertNewMatch } = require('./matching-orm')
+const { deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable, insertNewMatch, getNameOfUserMatchedTo } = require('./matching-orm')
 const { sequelize } = require('./repository.js')
 
 const { Server } = require("socket.io");
@@ -88,7 +88,16 @@ io.on("connection", (socket) => {
   // frontend MUST emit this event when a user that is matched has logged out or chose to leave the room
   socket.on('user leave room', async ({ userName }) => {
     console.log(`user with username ${userName} has left the room`);
-    await deleteMatch(userName);
+
+    // emit to the other user so that he/she will leave the room
+    const nameOfOtherUser = await getNameOfUserMatchedTo(userName);
+
+    if (nameOfOtherUser) {
+      const socketIdOfOtherUser = getSocketIdForUser(nameOfOtherUser);
+      io.to(socketIdOfOtherUser).emit('matched user left room');
+  
+      await deleteMatch(userName);
+    }
   })
 
 })

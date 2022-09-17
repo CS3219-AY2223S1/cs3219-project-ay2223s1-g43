@@ -14,8 +14,14 @@ const RoomPage = () => {
       socket.emit('user disconnected', { userName });
     });
 
+    socket.on('matched user left room', () => {
+      console.log(`Partner of user ${userName} has left the room`)
+      leaveRoom();
+    })
+
     return () => {
-      socket.off('disconnect')
+      socket.off('disconnect');
+      socket.off('matched user left room');
       socket.emit('user leave room', { userName });
     }
   }, [])
