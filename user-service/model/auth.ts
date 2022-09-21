@@ -8,7 +8,14 @@ interface TokenPayload {
   username: string;
 }
 
-export function createUserToken(user: UserData) {
+export function createAccessToken(user: UserData) {
+  const token = jsonwebtoken.sign({ username: user.username }, SECRET_KEY, {
+    expiresIn: "2h",
+  });
+  return token;
+}
+
+export function createRefreshToken(user: UserData) {
   const token = jsonwebtoken.sign({ username: user.username }, SECRET_KEY, {
     expiresIn: "12h",
   });
