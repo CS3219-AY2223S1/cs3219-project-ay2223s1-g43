@@ -40,11 +40,11 @@ export async function updatePassword(username: string, newPHash: string) {
   return user;
 }
 
-export async function updateSession(username: string, Session: string) {
+export async function updateSession(username: string, session: string) {
   const user = await userModel
     .findOneAndUpdate(
       { username: username },
-      { session: Session },
+      { session: session },
       {
         new: true,
       }
