@@ -40,6 +40,19 @@ export async function updatePassword(username: string, newPHash: string) {
   return user;
 }
 
+export async function updateSession(username: string, Session: string) {
+  const user = await userModel
+    .findOneAndUpdate(
+      { username: username },
+      { session: Session },
+      {
+        new: true,
+      }
+    )
+    .exec();
+  return user;
+}
+
 export async function deleteUser(username: string) {
   const user = await userModel.findOneAndDelete({ username: username }).exec();
   return user;

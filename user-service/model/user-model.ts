@@ -3,6 +3,7 @@ import { Document, model, Schema } from "mongoose";
 export interface UserData extends Document {
   username: string;
   pHash: string;
+  session: string;
 }
 
 const userSchema = new Schema<UserData>({
@@ -14,6 +15,9 @@ const userSchema = new Schema<UserData>({
   pHash: {
     type: String,
     required: true,
+  },
+  session: {
+    type: String,
   },
 });
 
