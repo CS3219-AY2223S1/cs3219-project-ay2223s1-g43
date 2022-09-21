@@ -1,4 +1,4 @@
-import { error_msg, success_msg } from "./respondMsg";
+import { error_msg } from "./respondMsg";
 import { ormRefreshAccessToken } from "../../model/user-orm";
 
 export default async function refreshToken(req, res) {
