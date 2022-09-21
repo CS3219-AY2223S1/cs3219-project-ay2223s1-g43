@@ -1,7 +1,13 @@
 import { comparePasswordAndHash, hashPassword } from "./password";
 import { createUser, deleteUser, findUser, updatePassword } from "./repository";
-import { createUserToken } from "./auth";
+import { createAccessToken, createRefreshToken, checkToken } from "./auth";
 import { UserData } from "./user-model";
+
+interface Tokens {
+  username: string;
+  accessToken: string;
+  refreshToken: string;
+}
 
 //need to separate orm functions from repository to decouple business logic from persistence
 export async function ormCreateUser(username: string, password: string) {
@@ -20,10 +26,30 @@ export async function ormDeleteUser(username: string) {
   return deletedUser;
 }
 
-export function ormLoginUser(user: UserData, password: string) {
+export function ormLoginUser(user: UserData, password: string): Tokens | null {
   if (comparePasswordAndHash(password, user.pHash)) {
-    return createUserToken(user);
+    return {
+      username: user.username,
+      accessToken: createAccessToken(user),
+      refreshToken: createRefreshToken(user),
+    };
   } else {
+    return null;
+  }
+}
+
+export async function ormRefreshAccessToken(refreshToken: string) {
+  try {
+    const data = checkToken(refreshToken);
+    const user = await findUser(data.username);
+    if (!user) {
+      return null;
+    }
+    return {
+      username: user.username,
+      accessToken: createAccessToken(user),
+    };
+  } catch (err) {
     return null;
   }
 }
