@@ -1,23 +1,10 @@
-import auth from "./controller/auth";
-import cookieParser from "cookie-parser";
-import cors from "cors";
 import express from "express";
 import users from "./controller/users";
 import { body } from "express-validator";
 
-const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000/";
-
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true,
-    // TODO: fix this to rely on ORIGIN_URL
-    origin: /http:\/\/localhost:3000\/*/,
-  })
-);
 
 const router = express.Router();
 
@@ -27,20 +14,22 @@ router.get("/", (_, res) => {
 });
 
 router.post("/", body("password").isLength({ min: 5 }), users.createUser);
-router.delete("/", auth.authorization, users.deleteUser);
+router.delete("/", users.deleteUser);
 router.post("/login", users.loginUser);
-router.get("/logout", auth.authorization, (_, res) => {
+router.get("/logout", (_, res) => {
   return res
     .clearCookie("access_token")
     .status(200)
     .json({ message: "Logged out successfully!" });
 });
-router.put("/change_password", auth.authorization, users.changePassword);
+router.put("/change_password", users.changePassword);
+router.all("*", (_, res) => {
+  return res.status(401).json({ message: "Data not found!"});
+});
 
 app.use("/api/user", router);
 app.use("/api/user", (_, res) => {
   res.setHeader("content-type", "application/json");
-  // res.setHeader("Access-Control-Allow-Origin", "*");
 });
 
 app.listen(8000, () => console.log("user-service listening on port 8000"));

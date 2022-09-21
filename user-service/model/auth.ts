@@ -4,18 +4,15 @@ import "dotenv/config";
 
 const SECRET_KEY = process.env.SECRET_KEY || "test";
 
-interface TokenPayload {
-  username: string;
-}
-
 export function createUserToken(user: UserData) {
-  const token = jsonwebtoken.sign({ username: user.username }, SECRET_KEY, {
-    expiresIn: "12h",
-  });
+  const token = jsonwebtoken.sign(
+    { 
+      username: user.username 
+    }, 
+    SECRET_KEY, 
+    {
+      expiresIn: "12h",
+    }
+  );
   return token;
-}
-
-export function checkToken(token: string) {
-  const data = jsonwebtoken.verify(token, SECRET_KEY) as TokenPayload;
-  return data;
 }
