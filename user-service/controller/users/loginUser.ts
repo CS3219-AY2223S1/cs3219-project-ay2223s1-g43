@@ -1,6 +1,9 @@
 import { error_msg, success_msg } from "./respondMsg";
-import { ormFindUser, ormLoginUser } from "../../model/user-orm";
-import { v4 as uuidv4 } from 'uuid';
+import {
+  ormFindUser,
+  ormLoginUser,
+  ormUpdateSession,
+} from "../../model/user-orm";
 import { validationResult } from "express-validator";
 
 export default async function loginUser(req, res) {
@@ -24,6 +27,7 @@ export default async function loginUser(req, res) {
         .status(400)
         .json({ message: error_msg.WRONG_USERNAME_OR_PASSWORD_ERROR });
     }
+    await ormUpdateSession(user.username, tokens.session);
     return res
       .cookie("access_token", tokens.accessToken, {
         httpOnly: true,

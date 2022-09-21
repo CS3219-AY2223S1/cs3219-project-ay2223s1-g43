@@ -17,7 +17,6 @@ export default async function refreshToken(req, res) {
       })
       .status(200)
       .json({
-        message: success_msg.LOGIN_SUCCESS_MESSAGE,
         username: tokens.username,
       });
   } catch (err) {

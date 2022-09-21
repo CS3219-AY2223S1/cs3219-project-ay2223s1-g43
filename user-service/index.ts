@@ -28,14 +28,9 @@ router.get("/", (_, res) => {
 
 router.post("/", body("password").isLength({ min: 5 }), users.createUser);
 router.delete("/", auth.authorization, users.deleteUser);
-router.post("refresh_access_token", users.refreshToken);
+router.post("/refresh_access_token", users.refreshToken);
 router.post("/login", users.loginUser);
-router.get("/logout", auth.authorization, (_, res) => {
-  return res
-    .clearCookie("access_token")
-    .status(200)
-    .json({ message: "Logged out successfully!" });
-});
+router.get("/logout", auth.authorization, users.logoutUser);
 router.put("/change_password", auth.authorization, users.changePassword);
 
 app.use("/api/user", router);
