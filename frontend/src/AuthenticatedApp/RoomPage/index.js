@@ -4,11 +4,19 @@ import { useEffect, useState } from "react";
 import RoomPageHeader from "./Header";
 import RoomPageContent from "./Content";
 import useQuestion from "../../hooks/auth/useQuestion";
+import { Alert, Snackbar } from "@mui/material";
+
+const sx = {
+  alert: { width: "100%" }
+}
 
 const RoomPage = () => {
   const [question, setQuestion] = useState(null)
   const { username: userName } = useAuthContext()
   const { getQuestion } = useQuestion();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [partnerUsername, setPartnerUsername] = useState("");
 
   useEffect(() => {
     const loadQuestion = async () => {
@@ -18,13 +26,17 @@ const RoomPage = () => {
 
     loadQuestion()
 
+    socket.emit('get partner name', { userName }, (response) => {
+      setPartnerUsername(response.partnerUsername)
+    });
+
     socket.on('disconnect', () => {
       socket.emit('user disconnected', { userName });
     });
 
     socket.on('matched user left room', () => {
-      // TODO: add snackbar to inform remaining user
-      console.log(`Partner of user ${userName} has left the room`)
+
+      setOpenSnackbar(true)
     })
 
     return () => {
@@ -34,10 +46,17 @@ const RoomPage = () => {
     }
   }, [])
 
+  const closeSnackbar = () => setOpenSnackbar(false);
+
   return (
     <>
-      <RoomPageHeader/>
-      <RoomPageContent question={question}/>
+      <RoomPageHeader />
+      <RoomPageContent question={question} />
+      <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={closeSnackbar}>
+        <Alert onClose={closeSnackbar} variant="filled" severity="info" sx={sx.alert}>
+          {`Partner ${partnerUsername} has left room`}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

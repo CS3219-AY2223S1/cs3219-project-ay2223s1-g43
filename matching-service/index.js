@@ -90,6 +90,13 @@ io.on("connection", (socket) => {
     socketArr = socketArr.filter(socketObj => socketObj.userName !== userName);
   })
 
+  socket.on('get partner name', async ({ userName }, callback) => {
+    const nameOfOtherUser = await getNameOfUserMatchedTo(userName);
+    callback({
+      partnerUsername: nameOfOtherUser
+    });
+  })
+
   // frontend MUST emit this event when a user that is matched has logged out or chose to leave the room
   socket.on('user leave room', async ({ userName }) => {
     console.log(`user with username ${userName} has left the room`);
@@ -100,7 +107,7 @@ io.on("connection", (socket) => {
     if (nameOfOtherUser) {
       const socketIdOfOtherUser = getSocketIdForUser(nameOfOtherUser);
       io.to(socketIdOfOtherUser).emit('matched user left room');
-  
+
       await deleteMatch(userName);
     }
   })
