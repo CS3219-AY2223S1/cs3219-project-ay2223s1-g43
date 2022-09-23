@@ -4,7 +4,6 @@ import socket from "../../api/matching";
 import { useAuthContext } from "../../hooks/auth/useAuthContext";
 import { useEffect } from "react";
 
-
 const RoomPage = () => {
   const { username: userName } = useAuthContext()
   const navigate = useNavigate()
@@ -15,8 +14,8 @@ const RoomPage = () => {
     });
 
     socket.on('matched user left room', () => {
+      // TODO: add snackbar to inform remaining user
       console.log(`Partner of user ${userName} has left the room`)
-      leaveRoom();
     })
 
     return () => {
