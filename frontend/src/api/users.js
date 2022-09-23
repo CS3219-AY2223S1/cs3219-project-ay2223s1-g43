@@ -30,8 +30,9 @@ export const usersAPI = {
     try {
       const res = await instance.post(PREFIX_USER_SVC + "/login", { username, password });
       if (res && res.status === STATUS_CODE_OKAY) {
-        const { token } = res.data;
-        return token;
+        console.log(res.data)
+        const { refreshToken } = res.data;
+        return refreshToken;
       } else {
         throw new Error()
       }
@@ -84,6 +85,18 @@ export const usersAPI = {
       } else {
         throw new ResponseException('Please try again later')
       }
+    }
+  },
+  handleAuthenticate: async (refreshToken) => {
+    try {
+      const res = await instance.post(PREFIX_USER_SVC + "/refresh_access_token", {refreshToken});
+      const { username } = res.data;
+      if (!(res && res.status === STATUS_CODE_OKAY)) {
+        throw new Error()
+      }
+      return username;
+    } catch (err) {
+      return false;
     }
   }
 }
