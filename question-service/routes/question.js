@@ -5,19 +5,19 @@ let HardQuestion = require('../models/hardQuestion.model');
 
 router.route('/getEasy').get((req, res) => {
     EasyQuestion.find()
-        .then(question => res.json(question))
+    .then(question => res.json(question[Math.round(Math.random() * question.length - 1)]))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/getMedium').get((req, res) => {
     MediumQuestion.find()
-        .then(question => res.json(question))
+        .then(question => res.json(question[Math.round(Math.random() * question.length - 1)]))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/getHard').get((req, res) => {
     HardQuestion.find()
-        .then(question => res.json(question))
+    .then(question => res.json(question[Math.round(Math.random() * question.length - 1)]))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
