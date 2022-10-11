@@ -7,15 +7,17 @@ import { WebrtcProvider } from 'y-webrtc'
 import { yCollab } from "y-codemirror.next";
 
 const Editor = (props) => {
+  const { username, room, password } = props;
   const ydoc = new Y.Doc();
   //syncs the ydoc throught WebRTC connection
   const provider = new WebrtcProvider(
-    '123567', //**generate room number when user match */
+    room,
     ydoc,
     {
       signaling: [
         "wss://signaling.yjs.dev", //public signaling server
-      ],  
+      ],
+      password: password,  
     }
   );
   const yText = ydoc.getText("codemirror");
@@ -25,7 +27,7 @@ const Editor = (props) => {
   const color = RandomColor();
   //Awareness protocol is used to propagate your information (cursor position , name , etc)
   awareness.setLocalStateField("user", {
-    name: 'test' + Math.round(Math.random() * 10), //**todo: username of current user */
+    name: username,
     color: color,
   });
 
