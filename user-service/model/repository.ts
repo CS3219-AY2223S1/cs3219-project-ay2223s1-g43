@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import UserModel from "./user-model";
 import "dotenv/config";
-import userModel from "./user-model";
-
 //Set up mongoose connection
 
 const mongoDB =
@@ -28,7 +26,7 @@ export async function findUser(username: string) {
 }
 
 export async function updatePassword(username: string, newPHash: string) {
-  const user = await userModel
+  const user = await UserModel
     .findOneAndUpdate(
       { username: username },
       { pHash: newPHash },
@@ -41,7 +39,7 @@ export async function updatePassword(username: string, newPHash: string) {
 }
 
 export async function updateSession(username: string, session: string) {
-  const user = await userModel
+  const user = await UserModel
     .findOneAndUpdate(
       { username: username },
       { session: session },
@@ -54,6 +52,6 @@ export async function updateSession(username: string, session: string) {
 }
 
 export async function deleteUser(username: string) {
-  const user = await userModel.findOneAndDelete({ username: username }).exec();
+  const user = await UserModel.findOneAndDelete({ username: username }).exec();
   return user;
 }

@@ -115,4 +115,4 @@ io.on("connection", (socket) => {
 })
 
 
-sequelize.sync({ alter: true }).then(() => httpServer.listen(8001))
+sequelize.sync({ alter: true }).then(() => httpServer.listen(8001, () => console.log("matching-service listening on port 8001")));
