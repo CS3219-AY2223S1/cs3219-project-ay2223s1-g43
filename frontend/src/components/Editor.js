@@ -34,7 +34,7 @@ const Editor = (props) => {
   return (
     <CodeMirror 
       value=""
-      height="500px"
+      height="600px"
       width='500px'
       theme={dracula}
       extensions={[
