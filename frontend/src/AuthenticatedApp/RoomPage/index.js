@@ -1,4 +1,3 @@
-import Editor from "../../components/Editor";
 import socket from "../../api/matching";
 import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth/useAuthContext";
@@ -55,8 +54,7 @@ const RoomPage = () => {
   return (
     <>
       <RoomPageHeader />
-      <RoomPageContent question={question} />
-      <Editor username={userName} room={room} password={password} />
+      <RoomPageContent question={question} username={userName} room={room} password={password} />
       <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={closeSnackbar}>
         <Alert onClose={closeSnackbar} variant="filled" severity="info" sx={sx.alert}>
           {`Partner ${partnerUsername} has left room`}

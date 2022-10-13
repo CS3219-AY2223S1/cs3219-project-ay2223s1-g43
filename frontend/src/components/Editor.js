@@ -7,7 +7,7 @@ import { WebrtcProvider } from 'y-webrtc'
 import { yCollab } from "y-codemirror.next";
 
 const Editor = (props) => {
-  const { username, room, password } = props;
+  const { username, room, password, height } = props;
   const ydoc = new Y.Doc();
   //syncs the ydoc throught WebRTC connection
   const provider = new WebrtcProvider(
@@ -17,7 +17,7 @@ const Editor = (props) => {
       signaling: [
         "wss://signaling.yjs.dev", //public signaling server
       ],
-      password: password,  
+      password: password,
     }
   );
   const yText = ydoc.getText("codemirror");
@@ -32,10 +32,10 @@ const Editor = (props) => {
   });
 
   return (
-    <CodeMirror 
+    <CodeMirror
       value=""
-      height="600px"
-      width='500px'
+      height={height}
+      width='100%'
       theme={dracula}
       extensions={[
         javascript({ jsx: true }),
