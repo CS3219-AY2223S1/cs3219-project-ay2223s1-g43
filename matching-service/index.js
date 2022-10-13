@@ -1,6 +1,7 @@
 const { createServer } = require('http');
 const { deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable, insertNewMatch, getNameOfUserMatchedTo } = require('./matching-orm')
 const { sequelize } = require('./repository.js')
+const { v4: uuidv4 } = require('uuid')
 
 const { Server } = require("socket.io");
 const express = require('express');
@@ -43,6 +44,8 @@ io.on("connection", (socket) => {
       // add a socket object for this user to the socket array if he doesnt have one
       addSocketObj(userName, socket.id);
 
+      await deleteMatch(userName);
+
       const matchResult = await isMatchAvailable(difficulty)
 
       if (!matchResult) {
@@ -57,14 +60,16 @@ io.on("connection", (socket) => {
         await deletePendingMatch(userName);
         await insertNewMatch(userName, matchedUserName, difficulty);
 
-        // 2. Send an event to both user's frontend that includes each other's socketId
+         // 2. Generate collab unqiue room id and password
+         const room = uuidv4();
+         const password = uuidv4();
+ 
+         // 3. Send an event to both user's frontend that includes each other's socketId
         const socketIdOfUser1 = getSocketIdForUser(matchedUserName);
         const socketIdOfUser2 = getSocketIdForUser(userName);
 
-
-        io.to(socketIdOfUser1).emit('matchSuccess', socketIdOfUser2);
-        io.to(socketIdOfUser2).emit('matchSuccess', socketIdOfUser1);
-
+        io.to(socketIdOfUser1).emit('matchSuccess', { matchedSocketId: socketIdOfUser2, room: room, password: password });
+        io.to(socketIdOfUser2).emit('matchSuccess', { matchedSocketId: socketIdOfUser1, room: room, password: password });
       }
     } catch (error) {
       console.error(error.message)
