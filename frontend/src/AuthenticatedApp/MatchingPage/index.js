@@ -35,8 +35,8 @@ const MatchingPage = () => {
     setFindingMatch(true)
   }
 
-  socket.on("matchSuccess", () => {
-    navigate("/room-page")
+  socket.on("matchSuccess", (data) => {
+    navigate("/room-page", { state: { room: data.room, password: data.password, difficulty } });
   })
 
   return (

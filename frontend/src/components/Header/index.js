@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material";
 import Logo from "./Logo";
 
 const sx = {
-  header : {
+  header: {
     top: 0,
     position: "sticky",
     backgroundColor: "background.default",
@@ -15,19 +15,19 @@ const sx = {
 }
 
 const Header = (props) => {
-  const {rightContent = <Box/>} = props;
+  const { rightContent = <Box /> } = props;
 
   return (
-  <Stack
-    direction="row"
-    justifyContent="space-between"
-    alignItems="center"
-    spacing={0}
-    sx={sx.header}
-  >
-    <Logo/>
-    {rightContent}
-  </Stack>
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      spacing={0}
+      sx={sx.header}
+    >
+      <Logo />
+      {rightContent}
+    </Stack>
   )
 }
 

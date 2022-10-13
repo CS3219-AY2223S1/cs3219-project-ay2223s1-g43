@@ -1,4 +1,4 @@
-import instance from "./client";
+import { userService } from "./client";
 import {
   STATUS_CODE_OKAY,
   STATUS_CODE_CONFLICT,
@@ -14,7 +14,7 @@ const PREFIX_USER_SVC = '/api/user'
 export const usersAPI = {
   handleSignup: async (username, password) => {
     try {
-      const res = await instance.post(PREFIX_USER_SVC, { username, password });
+      const res = await userService.post(PREFIX_USER_SVC, { username, password });
       if (!(res && res.status === STATUS_CODE_CREATED)) {
         throw new Error()
       }
@@ -28,9 +28,8 @@ export const usersAPI = {
   },
   handleLogIn: async (username, password) => {
     try {
-      const res = await instance.post(PREFIX_USER_SVC + "/login", { username, password });
+      const res = await userService.post(PREFIX_USER_SVC + "/login", { username, password });
       if (res && res.status === STATUS_CODE_OKAY) {
-        console.log(res.data)
         const { refreshToken } = res.data;
         return refreshToken;
       } else {
@@ -46,7 +45,7 @@ export const usersAPI = {
   },
   handleLogOut: async () => {
     try {
-      const res = await instance.get(PREFIX_USER_SVC + "/logout");
+      const res = await userService.get(PREFIX_USER_SVC + "/logout");
 
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
@@ -61,7 +60,7 @@ export const usersAPI = {
   },
   handleChangePassword: async (oldPassword, newPassword) => {
     try {
-      const res = await instance.put(PREFIX_USER_SVC + "/change_password", { oldPassword, newPassword });
+      const res = await userService.put(PREFIX_USER_SVC + "/change_password", { oldPassword, newPassword });
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }
@@ -75,7 +74,7 @@ export const usersAPI = {
   },
   handleDeleteAccount: async () => {
     try {
-      const res = await instance.delete(PREFIX_USER_SVC);
+      const res = await userService.delete(PREFIX_USER_SVC);
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }
@@ -89,7 +88,7 @@ export const usersAPI = {
   },
   handleAuthenticate: async (refreshToken) => {
     try {
-      const res = await instance.post(PREFIX_USER_SVC + "/refresh_access_token", {refreshToken});
+      const res = await userService.post(PREFIX_USER_SVC + "/refresh_access_token", {refreshToken});
       const { username } = res.data;
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()

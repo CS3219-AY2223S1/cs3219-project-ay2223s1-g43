@@ -1,14 +1,23 @@
-import { Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import socket from "../../api/matching";
 import { useAuthContext } from "../../hooks/auth/useAuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import RoomPageHeader from "./Header";
+import RoomPageContent from "./Content";
+import useQuestion from "../../hooks/auth/useQuestion";
 
 const RoomPage = () => {
+  const [question, setQuestion] = useState(null)
   const { username: userName } = useAuthContext()
-  const navigate = useNavigate()
+  const { getQuestion } = useQuestion();
 
   useEffect(() => {
+    const loadQuestion = async () => {
+      const q = await getQuestion()
+      setQuestion(q)
+    }
+
+    loadQuestion()
+
     socket.on('disconnect', () => {
       socket.emit('user disconnected', { userName });
     });
@@ -25,14 +34,11 @@ const RoomPage = () => {
     }
   }, [])
 
-  const leaveRoom = () => {
-    navigate("/")
-  }
-
   return (
-    <Box>
-      <Button onClick={leaveRoom}>Leave Room</Button>
-    </Box>
+    <>
+      <RoomPageHeader/>
+      <RoomPageContent question={question}/>
+    </>
   );
 }
 
