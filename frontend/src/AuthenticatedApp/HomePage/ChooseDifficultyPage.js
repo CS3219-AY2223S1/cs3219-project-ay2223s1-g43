@@ -20,8 +20,6 @@ const ChooseDifficultyPage = () => {
   const navigate = useNavigate();
 
   const startSession = () => {
-    console.log(DIFFICULTIES[selectedDifficulty].name)
-
     const difficulty = ("/" + DIFFICULTIES[selectedDifficulty].name).toLowerCase();
 
     navigate("/matching" + difficulty)

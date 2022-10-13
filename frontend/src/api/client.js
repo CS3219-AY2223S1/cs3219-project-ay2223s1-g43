@@ -1,11 +1,17 @@
 import axios from "axios";
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8000'
+const USER_SERVICE_URL = process.env.USER_SERVICE_URL || 'http://localhost:8000'
 
-const instance = axios.create({
+export const userService = axios.create({
   withCredentials: true,
-  baseURL: BASE_URL,
+  baseURL: USER_SERVICE_URL,
   timeout: 5000
 })
 
-export default instance;
+const QUESTION_SERVICE_URL = process.env.QUESTION_SERVICE_URL || 'http://localhost:5000'
+
+export const questionService = axios.create({
+  baseURL: QUESTION_SERVICE_URL,
+  timeout: 5000
+})
+
