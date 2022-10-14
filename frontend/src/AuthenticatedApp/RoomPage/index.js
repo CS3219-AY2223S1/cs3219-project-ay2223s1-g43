@@ -56,7 +56,7 @@ const RoomPage = () => {
       <RoomPageHeader />
       <RoomPageContent question={question} username={userName} room={room} password={password} />
       <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={closeSnackbar}>
-        <Alert onClose={closeSnackbar} variant="filled" severity="info" sx={sx.alert}>
+        <Alert onClose={closeSnackbar} variant="filled" severity="info" color="primary" sx={sx.alert}>
           {`Partner ${partnerUsername} has left room`}
         </Alert>
       </Snackbar>
