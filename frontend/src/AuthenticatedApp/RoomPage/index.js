@@ -1,4 +1,5 @@
 import socket from "../../api/matching";
+import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth/useAuthContext";
 import { useEffect, useState } from "react";
 import RoomPageHeader from "./Header";
@@ -12,8 +13,10 @@ const sx = {
 
 const RoomPage = () => {
   const [question, setQuestion] = useState(null)
-  const { username: userName } = useAuthContext()
   const { getQuestion } = useQuestion();
+  const { username: userName } = useAuthContext();
+  const { state } = useLocation();
+  const { room, password } = state;
 
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [partnerUsername, setPartnerUsername] = useState("");
@@ -51,9 +54,9 @@ const RoomPage = () => {
   return (
     <>
       <RoomPageHeader />
-      <RoomPageContent question={question} />
+      <RoomPageContent question={question} username={userName} room={room} password={password} />
       <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={closeSnackbar}>
-        <Alert onClose={closeSnackbar} variant="filled" severity="info" sx={sx.alert}>
+        <Alert onClose={closeSnackbar} variant="filled" severity="info" color="primary" sx={sx.alert}>
           {`Partner ${partnerUsername} has left room`}
         </Alert>
       </Snackbar>

@@ -60,11 +60,11 @@ io.on("connection", (socket) => {
         await deletePendingMatch(userName);
         await insertNewMatch(userName, matchedUserName, difficulty);
 
-         // 2. Generate collab unqiue room id and password
-         const room = uuidv4();
-         const password = uuidv4();
- 
-         // 3. Send an event to both user's frontend that includes each other's socketId
+        // 2. Generate collab unqiue room id and password
+        const room = uuidv4();
+        const password = uuidv4();
+
+        // 3. Send an event to both user's frontend that includes each other's socketId
         const socketIdOfUser1 = getSocketIdForUser(matchedUserName);
         const socketIdOfUser2 = getSocketIdForUser(userName);
 
@@ -115,4 +115,4 @@ io.on("connection", (socket) => {
 })
 
 
-sequelize.sync({ alter: true }).then(() => httpServer.listen(8001))
+sequelize.sync({ alter: true }).then(() => httpServer.listen(8001, () => console.log("matching-service listening on port 8001")));

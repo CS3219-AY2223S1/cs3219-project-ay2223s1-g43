@@ -6,8 +6,9 @@ const PREFIX_QUESTION_SVC = '/question'
 
 export const questionsAPI = {
   handleGetEasy: async (roomId) => {
+    console.log(roomId)
     try {
-      const res = await questionService.get(PREFIX_QUESTION_SVC + "/getEasy", { id: roomId });
+      const res = await questionService.post(PREFIX_QUESTION_SVC + "/getEasy", { id: roomId });
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }
@@ -19,7 +20,7 @@ export const questionsAPI = {
   },
   handleGetMedium: async (roomId) => {
     try {
-      const res = await questionService.get(PREFIX_QUESTION_SVC + "/getMedium", { id: roomId });
+      const res = await questionService.post(PREFIX_QUESTION_SVC + "/getMedium", { id: roomId });
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }
@@ -31,7 +32,7 @@ export const questionsAPI = {
   },
   handleGetHard: async (roomId) => {
     try {
-      const res = await questionService.get(PREFIX_QUESTION_SVC + "/getHard", { id: roomId });
+      const res = await questionService.post(PREFIX_QUESTION_SVC + "/getHard", { id: roomId });
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }
