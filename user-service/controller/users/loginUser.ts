@@ -4,10 +4,8 @@ import {
   ormLoginUser,
   ormUpdateSession,
 } from "../../model/user-orm";
-import { validationResult } from "express-validator";
 
 export default async function loginUser(req, res) {
-  //todo add validation
   try {
     const { username, password } = req.body;
     if (!username || !password) {

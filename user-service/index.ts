@@ -25,13 +25,19 @@ const router = express.Router();
 router.get("/", (_, res) => {
   res.send("Hello World from user-service");
 });
-
-router.post("/", body("password").isLength({ min: 5 }), users.createUser);
+router.post("/", 
+  body("password").trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
+  users.createUser
+);
 router.delete("/", auth.authorization, users.deleteUser);
 router.post("/refresh_access_token", users.refreshToken);
 router.post("/login", users.loginUser);
 router.get("/logout", auth.authorization, users.logoutUser);
-router.put("/change_password", auth.authorization, users.changePassword);
+router.put("/change_password", 
+  auth.authorization, 
+  body("newPassword").trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
+  users.changePassword
+);
 
 app.use("/api/user", router);
 app.use("/api/user", (_, res) => {

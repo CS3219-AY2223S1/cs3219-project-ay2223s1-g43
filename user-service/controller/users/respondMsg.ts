@@ -1,7 +1,7 @@
 export const error_msg = {
   CREATION_ERROR: "Could not create a new user!",
   DATABASE_ERROR: "Database failure!",
-  INVALID_INPUTS: "Invalid inputs!",
+  PASSWORD_ERROR: "Password does not meet the requirement!",
   INVALID_USER_ERROR: "Invalid user!",
   INVALID_TOKEN_ERROR: "Invalid token!",
   MISSING_USERNAME_OR_PASSWORD_ERROR: "Username and/or Password are missing!",
