@@ -13,7 +13,7 @@ const sx = {
 }
 
 const RoomPageContent = (props) => {
-  const { question, userName, room, password } = props
+  const { question, username, room, password } = props
   return (
     <Container maxWidth="xl" sx={sx.content}>
       <Grid container columnSpacing={4}>
@@ -24,7 +24,7 @@ const RoomPageContent = (props) => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={sx.column}>
-            <Editor username={userName} room={room} password={password} height={sx.column.height} />
+            <Editor username={username} room={room} password={password} height={sx.column.height} />
           </Box>
         </Grid>
       </Grid>
