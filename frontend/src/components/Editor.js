@@ -5,6 +5,7 @@ import { dracula } from '@uiw/codemirror-theme-dracula';
 import { javascript } from '@codemirror/lang-javascript';
 import { WebrtcProvider } from 'y-webrtc'
 import { yCollab } from "y-codemirror.next";
+import "../styles/editor.css"
 
 const Editor = (props) => {
   const { username, room, password, height } = props;
