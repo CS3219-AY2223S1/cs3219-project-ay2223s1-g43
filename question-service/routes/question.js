@@ -4,26 +4,27 @@ let MediumQuestion = require('../models/mediumQuestion.model');
 let HardQuestion = require('../models/hardQuestion.model');
 var seedrandom = require('seedrandom');
 
-router.route('/getEasy').get((req, res) => {
+router.route('/getEasy').post((req, res) => {
     const { id } = req.body;
     const rng = seedrandom(id);
     EasyQuestion.find()
         .then(question => {
-            const questionIndex = Math.floor(rng() * question.length)
-            res.json(question[questionIndex])
+            res.json(question[Math.floor(rng() * question.length)])
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/getMedium').get((req, res) => {
+router.route('/getMedium').post((req, res) => {
     const { id } = req.body;
     const rng = seedrandom(id);
     MediumQuestion.find()
-        .then(question => res.json(question[Math.floor(rng() * question.length)]))
+        .then(question => {
+            res.json(question[Math.floor(rng() * question.length)])
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/getHard').get((req, res) => {
+router.route('/getHard').post((req, res) => {
     const { id } = req.body;
     const rng = seedrandom(id);
     HardQuestion.find()
