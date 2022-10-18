@@ -6,7 +6,6 @@ const PREFIX_QUESTION_SVC = '/question'
 
 export const questionsAPI = {
   handleGetEasy: async (roomId) => {
-    console.log(roomId)
     try {
       const res = await questionService.post(PREFIX_QUESTION_SVC + "/getEasy", { id: roomId });
       if (!(res && res.status === STATUS_CODE_OKAY)) {
