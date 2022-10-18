@@ -28,7 +28,11 @@ const sx = {
 
 const schema = yup.object({
   username: yup.string().required("No username provided"),
-  password: yup.string().required("No password provided").min(5, "Password should be at least 5 characters"),
+  password: yup.string().required("No password provided")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/,
+      "Password should be at least 8 characters long, and contain at least 1 uppercase and 1 lowercase character."
+    ),
 }).required();
 
 const AuthForm = (props) => {

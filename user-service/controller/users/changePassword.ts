@@ -4,9 +4,14 @@ import {
   ormLoginUser,
   ormUpdatePassword,
 } from "../../model/user-orm";
+import { validationResult } from "express-validator";
 
 export default async function changePassword(req, res) {
-  //todo add validation
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: error_msg.PASSWORD_ERROR });
+  }
+
   try {
     const { oldPassword, newPassword } = req.body;
     if (!oldPassword || !newPassword) {
