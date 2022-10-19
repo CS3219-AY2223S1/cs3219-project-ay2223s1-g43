@@ -4,20 +4,20 @@ export const AuthContext = createContext(null);
 
 export const useAuthContextProvider = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userDetails, setUserDetails] = useState({});
 
-  const setLogIn = (username) => {
+  const setLogIn = (username, userId) => {
     setIsLoggedIn(true)
-    setUsername(username)
+    setUserDetails({username, userId})
   }
 
   const setLogOut = () => {
     setIsLoggedIn(false)
-    setUsername("")
+    setUserDetails({})
   }
 
   return {
-    username, isLoggedIn, setLogIn, setLogOut,
+    username: userDetails.username, userId: userDetails.userId, isLoggedIn, setLogIn, setLogOut,
   };
 };
 

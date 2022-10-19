@@ -4,7 +4,7 @@ import { useAuthContext } from "../../hooks/auth/useAuthContext";
 import { useEffect, useState } from "react";
 import RoomPageHeader from "./Header";
 import RoomPageContent from "./Content";
-import useQuestion from "../../hooks/auth/useQuestion";
+import useQuestion from "../../hooks/useQuestion";
 import { Alert, Snackbar } from "@mui/material";
 
 const sx = {

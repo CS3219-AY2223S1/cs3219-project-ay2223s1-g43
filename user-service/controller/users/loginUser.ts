@@ -33,6 +33,7 @@ export default async function loginUser(req, res) {
       .status(200)
       .json({
         message: success_msg.LOGIN_SUCCESS_MESSAGE,
+        userId: user._id,
         username: tokens.username,
         refreshToken: tokens.refreshToken,
       });

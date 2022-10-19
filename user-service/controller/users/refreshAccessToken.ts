@@ -18,6 +18,7 @@ export default async function refreshToken(req, res) {
       .status(200)
       .json({
         username: tokens.username,
+        userId: tokens.userId,
       });
   } catch (err) {
     return res.status(400).json({ message: error_msg.INVALID_TOKEN_ERROR });

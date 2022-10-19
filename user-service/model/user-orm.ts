@@ -56,6 +56,7 @@ export async function ormRefreshAccessToken(refreshToken: string) {
       return null;
     }
     return {
+      userId: user._id,
       username: user.username,
       accessToken: createAccessToken(user),
     };

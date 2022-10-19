@@ -1,4 +1,4 @@
-import { questionsAPI } from "../../api/questions";
+import { questionsAPI } from "../api/questions";
 import { useLocation } from 'react-router-dom';
 
 const useQuestion = () => {

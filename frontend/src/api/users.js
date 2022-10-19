@@ -30,8 +30,8 @@ export const usersAPI = {
     try {
       const res = await userService.post(PREFIX_USER_SVC + "/login", { username, password });
       if (res && res.status === STATUS_CODE_OKAY) {
-        const { refreshToken } = res.data;
-        return refreshToken;
+        const { userId, refreshToken } = res.data;
+        return { userId, refreshToken };
       } else {
         throw new Error()
       }
@@ -89,11 +89,11 @@ export const usersAPI = {
   handleAuthenticate: async (refreshToken) => {
     try {
       const res = await userService.post(PREFIX_USER_SVC + "/refresh_access_token", {refreshToken});
-      const { username } = res.data;
+      const { userId, username } = res.data;
       if (!(res && res.status === STATUS_CODE_OKAY)) {
         throw new Error()
       }
-      return username;
+      return { userId, username };
     } catch (err) {
       return false;
     }
