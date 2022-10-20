@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from "@mui/material"
 import QuestionDisplay from "./QuestionDisplay"
-import Editor from "../../components/Editor";
+import Editor from "../components/Editor";
 import { useRoomContext } from "../../hooks/useRoomContext";
 
 const sx = {

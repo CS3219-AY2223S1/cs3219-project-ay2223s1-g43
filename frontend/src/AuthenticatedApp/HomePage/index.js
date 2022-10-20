@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import Header from "../../components/Header";
-import AvatarMenu from "../../components/Header/AvatarMenu";
+import AvatarMenu from "../components/Header/AvatarMenu";
 import ChooseDifficultyPage from "./ChooseDifficultyPage";
 
 const HomePage = () => {

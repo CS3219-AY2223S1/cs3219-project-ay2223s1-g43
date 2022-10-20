@@ -10,8 +10,8 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import useAuth from "../../../hooks/auth/useAuth";
-import { useAuthContext } from "../../../hooks/auth/useAuthContext";
+import useAuth from "../../../../hooks/auth/useAuth";
+import { useAuthContext } from "../../../../hooks/auth/useAuthContext";
 
 const DeleteAccountModal = (props) => {
   const { isDialogOpen, closeDialog } = props;

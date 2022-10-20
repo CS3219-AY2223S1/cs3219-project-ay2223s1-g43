@@ -6,8 +6,8 @@ import { javascript } from '@codemirror/lang-javascript';
 import { useEffect, useState } from 'react';
 import { WebrtcProvider } from 'y-webrtc'
 import { yCollab } from "y-codemirror.next";
-import { useAuthContext } from '../hooks/auth/useAuthContext';
-import "../styles/editor.css"
+import { useAuthContext } from '../../hooks/auth/useAuthContext';
+import "../../styles/editor.css"
 
 const Editor = (props) => {
   const { room, password, height, ydoc, yText } = props;

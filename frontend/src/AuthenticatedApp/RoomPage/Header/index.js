@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import AvatarMenu from "../../../components/Header/AvatarMenu";
+import AvatarMenu from "../../components/Header/AvatarMenu";
 import LeaveButton from "./LeaveButton";
 
 const sx = {
