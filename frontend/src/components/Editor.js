@@ -6,13 +6,15 @@ import { javascript } from '@codemirror/lang-javascript';
 import { useEffect, useState } from 'react';
 import { WebrtcProvider } from 'y-webrtc'
 import { yCollab } from "y-codemirror.next";
+import { useAuthContext } from '../hooks/auth/useAuthContext';
 import "../styles/editor.css"
 
 const Editor = (props) => {
-  const { username, room, password, height } = props;
+  const { room, password, height, ydoc, yText } = props;
   const [collab, setCollab] = useState(null);
+  const { userDetails } = useAuthContext();
+
   useEffect(() => {
-    const ydoc = new Y.Doc();
     //syncs the ydoc throught WebRTC connection
     const provider = new WebrtcProvider(
       room,
@@ -20,34 +22,34 @@ const Editor = (props) => {
       {
         signaling: [
           "wss://signaling.yjs.dev",
-          'wss://y-webrtc-signaling-eu.herokuapp.com', 
+          'wss://y-webrtc-signaling-eu.herokuapp.com',
         ],
         password: password,
       }
     );
-    const yText = ydoc.getText("codemirror");
-    //Undomanager used for stacking the undo and redo operation for yjs
+
+    // Undo manager used for stacking the undo and redo operation for yjs
     const yUndoManager = new Y.UndoManager(yText);
     const awareness = provider.awareness;
     const color = RandomColor();
-    //Awareness protocol is used to propagate your information (cursor position , name , etc)
+    // Awareness protocol is used to propagate your information (cursor position , name , etc)
     awareness.setLocalStateField("user", {
-      name: username,
+      name: userDetails.username,
       color: color,
     });
     setCollab(yCollab(yText, provider.awareness, { yUndoManager }));
     return () => {
       if (provider) {
         provider.disconnect();
-        ydoc.destroy();
+        provider.destroy();
       }
     };
-  }, [room, password]);
+  }, [ydoc, yText, room, password]);
 
   if (!collab) {
     return null;
   }
-  
+
   return (
     <CodeMirror
       value=""

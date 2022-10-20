@@ -15,7 +15,7 @@ import { useAuthContext } from "../../../hooks/auth/useAuthContext";
 
 const DeleteAccountModal = (props) => {
   const { isDialogOpen, closeDialog } = props;
-  const { username } = useAuthContext()
+  const { userDetails } = useAuthContext()
   const {deleteAccount} = useAuth()
 
   const [textValue, setTextValue] = useState("");
@@ -46,7 +46,7 @@ const DeleteAccountModal = (props) => {
             To confirm, type your username in the text field below.
           </Alert>
           <TextField
-            label={`Type ${username} to confirm`}
+            label={`Type ${userDetails.username} to confirm`}
             variant="outlined"
             fullWidth
             value={textValue}
@@ -56,7 +56,7 @@ const DeleteAccountModal = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
-        <Button disabled={textValue !== username} onClick={deleteUserAccount}>Confirm</Button>
+        <Button disabled={textValue !== userDetails.username} onClick={deleteUserAccount}>Confirm</Button>
       </DialogActions>
     </Dialog>
   );

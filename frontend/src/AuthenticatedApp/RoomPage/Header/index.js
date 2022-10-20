@@ -1,7 +1,6 @@
-import { Box, Button, Stack } from "@mui/material";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useNavigate } from "react-router-dom";
-import AvatarMenu from "../../components/Header/AvatarMenu";
+import { Stack } from "@mui/material";
+import AvatarMenu from "../../../components/Header/AvatarMenu";
+import LeaveButton from "./LeaveButton";
 
 const sx = {
   header: {
@@ -17,11 +16,6 @@ const sx = {
 }
 
 const RoomPageHeader = () => {
-  const navigate = useNavigate()
-
-  const leaveRoom = () => {
-    navigate("/")
-  }
 
   return (
     <Stack
@@ -31,11 +25,7 @@ const RoomPageHeader = () => {
       spacing={0}
       sx={sx.header}
     >
-      <Button onClick={leaveRoom}>
-        <ArrowBackIosIcon fontSize="small"/>
-        Leave Room
-      </Button>
-
+      <LeaveButton/>
       <AvatarMenu />
     </Stack>
   )

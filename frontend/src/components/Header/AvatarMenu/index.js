@@ -24,7 +24,7 @@ const sx = {
 }
 
 const AvatarMenu = () => {
-  const { username } = useAuthContext();
+  const { userDetails } = useAuthContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -62,7 +62,7 @@ const AvatarMenu = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={sx.avatar}>{username.charAt(0).toUpperCase()}</Avatar>
+          <Avatar sx={sx.avatar}>{userDetails.username.charAt(0).toUpperCase()}</Avatar>
         </IconButton>
       </Box>
       <Menu

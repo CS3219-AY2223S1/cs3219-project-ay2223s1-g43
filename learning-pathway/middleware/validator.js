@@ -12,7 +12,7 @@ export const createRecordValidator = [
   }),
   check('question_id').notEmpty().isNumeric(),
   check('question_title').notEmpty(),
-  check('code').notEmpty(),
+  check('code').exists(),
   check('timestamp').notEmpty().isISO8601().toDate(),
 ]
 
