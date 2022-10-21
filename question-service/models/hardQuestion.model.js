@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const hardQuestionSchema = new Schema({
@@ -25,6 +26,6 @@ const hardQuestionSchema = new Schema({
     timestamps: true,
 });
 
-const Question = mongoose.model('HardQuestion', hardQuestionSchema);
+const HardQuestion = mongoose.model('HardQuestion', hardQuestionSchema);
 
-module.exports = Question;
+export default HardQuestion

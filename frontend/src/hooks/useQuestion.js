@@ -7,15 +7,8 @@ const useQuestion = () => {
   const difficulty = location.state.difficulty
 
   const getQuestion = async () => {
-    if (difficulty === "easy") {
-      return await questionsAPI.handleGetEasy(roomId);
-
-    } else if (difficulty === "medium") {
-      return await questionsAPI.handleGetMedium(roomId);
-
-    } else if (difficulty === "hard") {
-      return await questionsAPI.handleGetHard(roomId);
-    }
+    // TODO: consider asserting (difficulty === "easy" || difficulty === "medium" || difficulty === "hard")
+    return await questionsAPI.handleGetRandomQuestion(difficulty, roomId)
   };
 
   return { getQuestion }
