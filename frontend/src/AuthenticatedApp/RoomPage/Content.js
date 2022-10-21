@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from "@mui/material"
-import QuestionDisplay from "./QuestionDisplay"
+import QuestionDisplay from "../components/QuestionDisplay"
 import Editor from "../components/Editor";
 import { useRoomContext } from "../../hooks/useRoomContext";
 

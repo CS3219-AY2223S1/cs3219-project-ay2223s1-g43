@@ -33,7 +33,7 @@ const RecordRow = (props) => {
         <TableCell>{row.question_title}</TableCell>
         <TableCell>{row.partner_username}</TableCell>
       </TableRow>
-      <RecordRowDetails open={open} code={row.code} questionId={row.question_id} />
+      <RecordRowDetails open={open} code={row.code} questionDifficulty={row.question_difficulty} questionId={row.question_id} />
     </>
   )
 }
