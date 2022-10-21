@@ -33,7 +33,6 @@ export const learningPathwayAPI = {
         throw new Error()
       }
     } catch (err) {
-      console.log(err)
       throw new ResponseException('Please try again later')
     }
   },

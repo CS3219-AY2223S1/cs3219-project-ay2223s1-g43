@@ -16,11 +16,6 @@ export const createRecordValidator = [
   check('timestamp').notEmpty().isISO8601().toDate(),
 ]
 
-export const addCommentValidator = [
-  check('id').notEmpty().isMongoId(),
-  check('comment').notEmpty()
-]
-
 export const userIdValidator = [
   check('userId').notEmpty().isMongoId(),
 ]

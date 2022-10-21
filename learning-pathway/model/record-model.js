@@ -1,14 +1,8 @@
-import { model, Types, Schema } from "mongoose";
+import mongoose, { model, Types, Schema } from "mongoose";
 import DIFFICULTIES from "./difficulties.js";
 
-// user ID of the user [x]
-// username of partner [x]
-// question difficulty [x]
-// question ID  [x]
-// question title [x]
-// code written [x]
-// the user’s comments [x]
-// datetime when the attempt was started [x]
+// Workaround to ensure empty strings are allowed
+mongoose.Schema.Types.String.checkRequired(v => typeof v === 'string');
 
 const recordSchema = new Schema({
   user_id: {
@@ -39,9 +33,6 @@ const recordSchema = new Schema({
   timestamp: {
     type: Date,
     required: true,
-  },
-  comment: {
-    type: String,
   },
 });
 

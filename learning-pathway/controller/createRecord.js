@@ -12,12 +12,10 @@ export default async function createRecord(req, res) {
     const { user_id, partner_username, question_difficulty, question_id,
       question_title, code, timestamp } = req.body;
 
-    // TODO: validate that user_id exists
-
     const resp = await ormCreateRecord(user_id, partner_username, question_difficulty,
       question_id, question_title, code, timestamp);
 
-    if (!resp) {
+    if (resp === null) {
       return res
         .status(201)
         .json({ message: success_msg.CREATE_SUCCESS_MESSAGE });

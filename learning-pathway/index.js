@@ -3,8 +3,7 @@ import express from "express";
 import createRecord from "./controller/createRecord.js";
 import deleteUserRecords from "./controller/deleteUserRecords.js";
 import getUserRecords from "./controller/getUserRecords.js";
-import { addCommentValidator, createRecordValidator, userIdValidator } from "./middleware/validator.js";
-import { updateRecordComment } from "./model/repository.js";
+import { createRecordValidator, userIdValidator } from "./middleware/validator.js";
 
 const ORIGIN_URL = process.env.ORIGIN_URL || "http://localhost:3000/";
 const PORT = process.env.PORT || 8002;
@@ -30,11 +29,6 @@ router.get("/:userId",
 router.post("/",
   createRecordValidator,
   createRecord
-);
-
-router.patch("/:id",
-  addCommentValidator,
-  updateRecordComment
 );
 
 router.delete("/:userId",

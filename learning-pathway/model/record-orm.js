@@ -12,12 +12,6 @@ export async function ormCreateRecord(user_id, partner_username, question_diffic
   }
 }
 
-export async function ormUpdateRecordComment(id, comment) {
-  const updatedRecord = await updateRecordComment(id, comment);
-  return updatedRecord;
-}
-
-
 export async function ormGetUserRecords(user_id) {
   const records = await getUserRecords(user_id);
   return records;

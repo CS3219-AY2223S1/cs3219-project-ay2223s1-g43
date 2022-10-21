@@ -36,12 +36,12 @@ const RecordRowDetails = (props) => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Box sx={sx.box}>
             <Grid container sx={sx.fullSize}>
-              <Grid xs={12} lg={6} sx={sx.gridItem}>
+              <Grid item xs={12} lg={6} sx={sx.gridItem}>
                 {open
                   ? <RecordRowQuestion questionId={questionId} questionDifficulty={questionDifficulty} />
                   : <QuestionDisplaySkeleton/>}
               </Grid>
-              <Grid xs={12} lg={6} sx={sx.gridItem}>
+              <Grid item xs={12} lg={6} sx={sx.gridItem}>
                 <CodeMirror
                   value={code}
                   width='100%'

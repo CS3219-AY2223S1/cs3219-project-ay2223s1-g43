@@ -11,9 +11,7 @@ const RecordRowQuestion = (props) => {
   }, [])
 
   return (
-    <>
-      <QuestionDisplay question={question} />
-    </>
+    <QuestionDisplay question={question} />
   )
 }
 

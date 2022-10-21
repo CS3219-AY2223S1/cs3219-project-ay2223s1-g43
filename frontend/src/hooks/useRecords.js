@@ -44,7 +44,6 @@ const useRecords = () => {
   useEffect(() => {
     const getStats = async () => {
       const stats = await learningPathwayAPI.handleGetRecords(userDetails.userId);
-      console.log(stats)
       processRecords(stats)
     }
 

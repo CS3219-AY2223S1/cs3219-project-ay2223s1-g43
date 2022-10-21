@@ -12,7 +12,7 @@ export const success_msg = {
   UPDATE_SUCCESS_MESSAGE: "Comment added successfully!",
 };
 
-// TODO: provide more message details
 export const generateValidationError = (errors) => {
-  return error_msg.INVALID_FIELDS + errors.map(e => e.param).join(", ")
+  const paramList = [... new Set(errors.map(e => e.param))]
+  return { errors: error_msg.INVALID_FIELDS + paramList.join(", "), details: errors }
 }

@@ -4,8 +4,6 @@ import RecordRow from "./RecordRow"
 const RecordTable = (props) => {
   const { data } = props
 
-  // TODO: add skeleton in future
-
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

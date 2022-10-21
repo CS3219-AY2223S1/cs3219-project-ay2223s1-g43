@@ -7,7 +7,6 @@ const useRecordQuestion = () => {
   const getQuestion = async (questionDifficulty, id) => {
     if (question === null) {
       const qn = await questionsAPI.handleGetQuestion(questionDifficulty.toLowerCase(), id)
-      console.log(qn)
       setQuestion(qn)
     }
   }
