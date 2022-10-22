@@ -37,7 +37,7 @@ const MatchingPage = () => {
   }
 
   socket.on("matchSuccess", (data) => {
-    navigate("/room-page", { replace: true, state: { room: data.room, password: data.password, difficulty } });
+    navigate("/room-page", { replace: true, state: { room: data.room, difficulty } });
   })
 
   return (

@@ -24,7 +24,7 @@ export const useRoomContextProvider = () => {
   const { userDetails } = useAuthContext();
 
   const { state } = useLocation();
-  const { room, password, difficulty } = state;
+  const { room, difficulty } = state;
 
   const saveRecord = async () => {
     console.log(question)
@@ -51,7 +51,7 @@ export const useRoomContextProvider = () => {
     };
   }, [])
 
-  return { partnerUsername, question, room, password, ydoc: codeDoc.ydoc, yText: codeDoc.yText, saveRecord };
+  return { partnerUsername, question, room, ydoc: codeDoc.ydoc, yText: codeDoc.yText, saveRecord };
 };
 
 export const useRoomContext = () => {

@@ -14,7 +14,7 @@ const sx = {
 }
 
 const RoomPageContent = () => {
-  const { question, room, password, ydoc, yText } = useRoomContext();
+  const { question, room, ydoc, yText } = useRoomContext();
 
   return (
     <Container maxWidth="xl" sx={sx.content}>
@@ -26,7 +26,7 @@ const RoomPageContent = () => {
         </Grid>
         <Grid item xs={6} md={6}>
           <Box sx={sx.column}>
-            <Editor room={room} password={password} height={sx.column.height} ydoc={ydoc} yText={yText} />
+            <Editor room={room} height={sx.column.height} ydoc={ydoc} yText={yText} />
           </Box>
         </Grid>
       </Grid>

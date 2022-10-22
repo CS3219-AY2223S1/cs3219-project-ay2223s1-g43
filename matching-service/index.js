@@ -62,14 +62,13 @@ io.on("connection", (socket) => {
 
         // 2. Generate collab unqiue room id and password
         const room = uuidv4();
-        const password = uuidv4();
 
         // 3. Send an event to both user's frontend that includes each other's socketId
         const socketIdOfUser1 = getSocketIdForUser(matchedUserName);
         const socketIdOfUser2 = getSocketIdForUser(userName);
 
-        io.to(socketIdOfUser1).emit('matchSuccess', { matchedSocketId: socketIdOfUser2, room: room, password: password });
-        io.to(socketIdOfUser2).emit('matchSuccess', { matchedSocketId: socketIdOfUser1, room: room, password: password });
+        io.to(socketIdOfUser1).emit('matchSuccess', { matchedSocketId: socketIdOfUser2, room: room });
+        io.to(socketIdOfUser2).emit('matchSuccess', { matchedSocketId: socketIdOfUser1, room: room });
       }
     } catch (error) {
       console.error(error.message)
