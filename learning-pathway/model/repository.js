@@ -39,7 +39,9 @@ export async function updateRecordComment(id, comment) {
 
 export async function getUserRecords(user_id) {
   const records = await recordModel
-    .find({ user_id }).exec();
+    .find({ user_id })
+    .sort({ timestamp: 'descending' })
+    .exec();
   return records;
 }
 
