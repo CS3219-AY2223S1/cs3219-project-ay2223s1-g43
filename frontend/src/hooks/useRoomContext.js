@@ -13,7 +13,6 @@ export const useRoomContextProvider = () => {
   const [question, setQuestion] = useState(null);
   const [timeStamp, setTimestamp] = useState(() => (new Date()).toISOString());
   const [codeDoc, setCodeDoc] = useState(() => {
-    console.log("computing...")
     const ydoc = new Y.Doc();
     const yText = ydoc.getText("codemirror");
 
@@ -27,7 +26,6 @@ export const useRoomContextProvider = () => {
   const { room, difficulty } = state;
 
   const saveRecord = async () => {
-    console.log(question)
     await learningPathwayAPI.handleAddRecord(userDetails.userId, partnerUsername, difficulty.toUpperCase(),
       question.id, question.title, codeDoc.yText.toString(), timeStamp)
   }
@@ -44,7 +42,6 @@ export const useRoomContextProvider = () => {
       setPartnerUsername(response.partnerUsername)
     });
     return () => {
-      console.log("...tearing down")
       if (codeDoc && codeDoc.ydoc) {
         codeDoc.ydoc.destroy();
       }
