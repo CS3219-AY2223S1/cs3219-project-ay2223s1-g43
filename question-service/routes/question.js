@@ -6,6 +6,10 @@ import getQuestion from "../controllers/getQuestion.js";
 
 const QuestionRouter = express.Router();
 
+QuestionRouter.get("/", (_, res) => {
+    res.send("Hello World from question service");
+});
+
 QuestionRouter.get("/:difficulty/:id",
     getQuestionValidator,
     getQuestion,
