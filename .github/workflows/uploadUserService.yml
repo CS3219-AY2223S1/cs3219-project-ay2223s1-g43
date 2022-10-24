@@ -1,8 +1,10 @@
-name: Upload to ECR
+name: Upload user service to ECR
 
 on: 
   push:
     branches: [ main ]
+    paths:
+      - user-service/**
 
 jobs:
   build:
