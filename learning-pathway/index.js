@@ -21,6 +21,10 @@ app.use(
 
 const router = express.Router();
 
+router.get("/", (_, res) => {
+  res.send("Hello World from learning-pathway");
+});
+
 router.get("/:userId",
   userIdValidator,
   getUserRecords
@@ -37,9 +41,5 @@ router.delete("/:userId",
 );
 
 app.use("/api/record", router);
-
-app.get("/api", (_, res) => {
-  res.send("Hello World from learning-pathway");
-});
 
 app.listen(PORT, () => console.log(`learning-pathway listening on port ${PORT}`));
