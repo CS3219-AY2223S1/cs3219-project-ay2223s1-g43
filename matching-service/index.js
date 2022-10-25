@@ -9,15 +9,19 @@ const cors = require('cors')
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: {
-    origin: 'http://localhost:3000' // might need to change this later
-  }
+  path: '/api/matching',
+  maxHttpBufferSize: 1024,
 })
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors()) // config cors so that front-end can use
 app.options('*', cors())
+
+//health check
+app.get("/", (_, res) => {
+  res.send("Hello World from matching service");
+});
 
 // socket array
 let socketArr = [] // an element will look like { socketId: ___, userName: ___ }
@@ -29,12 +33,12 @@ const addSocketObj = (userName, socketId) => {
     userName,
     socketId,
   })
-}
+};
 
 const getSocketIdForUser = (userName) => {
   const socketObjForUser = socketArr.find(socketObj => socketObj.userName === userName);
   return socketObjForUser.socketId;
-}
+};
 
 app.get("/api/matching", (req, res) => {
   res.send("Hello world from matching service");
@@ -66,14 +70,13 @@ io.on("connection", (socket) => {
 
         // 2. Generate collab unqiue room id and password
         const room = uuidv4();
-        const password = uuidv4();
 
         // 3. Send an event to both user's frontend that includes each other's socketId
         const socketIdOfUser1 = getSocketIdForUser(matchedUserName);
         const socketIdOfUser2 = getSocketIdForUser(userName);
 
-        io.to(socketIdOfUser1).emit('matchSuccess', { matchedSocketId: socketIdOfUser2, room: room, password: password });
-        io.to(socketIdOfUser2).emit('matchSuccess', { matchedSocketId: socketIdOfUser1, room: room, password: password });
+        io.to(socketIdOfUser1).emit('matchSuccess', { matchedSocketId: socketIdOfUser2, room: room });
+        io.to(socketIdOfUser2).emit('matchSuccess', { matchedSocketId: socketIdOfUser1, room: room });
       }
     } catch (error) {
       console.error(error.message)

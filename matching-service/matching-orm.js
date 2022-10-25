@@ -1,4 +1,3 @@
-// import { sequelize, DataTypes } from "./repository.js";
 const { sequelize, DataTypes } = require('./repository.js')
 const { getMatchModel } = require('./model/match');
 const { getPendingMatchModel } = require('./model/pending-match');

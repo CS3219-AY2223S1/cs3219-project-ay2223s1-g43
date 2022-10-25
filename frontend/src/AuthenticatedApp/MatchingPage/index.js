@@ -8,9 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const MatchingPage = () => {
   const [findingMatch, setFindingMatch] = useState(true);
-  const { username: userName } = useAuthContext()
+  const { userDetails } = useAuthContext()
   const { difficulty } = useParams();
   const navigate = useNavigate();
+  const userName = userDetails.username
 
   useEffect(() => {
     socket.on('disconnect', () => {
@@ -36,7 +37,7 @@ const MatchingPage = () => {
   }
 
   socket.on("matchSuccess", (data) => {
-    navigate("/room-page", { state: { room: data.room, password: data.password, difficulty } });
+    navigate("/room-page", { replace: true, state: { room: data.room, difficulty } });
   })
 
   return (

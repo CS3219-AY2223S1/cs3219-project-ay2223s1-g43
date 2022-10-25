@@ -1,6 +1,7 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DIFFICULTY_COLORS } from "../../utils/constants";
 import DifficultyCard from "./DifficultyCard";
 
 const sx = {
@@ -10,9 +11,9 @@ const sx = {
 }
 
 const DIFFICULTIES = [
-  { index: 0, name: "Easy", iconColor: "#39cce9" },
-  { index: 1, name: "Medium", iconColor: "#e9b139" },
-  { index: 2, name: "Hard", iconColor: "#e95039" },
+  { index: 0, name: "Easy", iconColor: DIFFICULTY_COLORS.EASY },
+  { index: 1, name: "Medium", iconColor: DIFFICULTY_COLORS.MEDIUM },
+  { index: 2, name: "Hard", iconColor: DIFFICULTY_COLORS.HARD },
 ]
 
 const ChooseDifficultyPage = () => {

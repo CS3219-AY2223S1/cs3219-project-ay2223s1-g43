@@ -21,7 +21,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import useAuth from "../../../hooks/auth/useAuth";
+import useAuth from "../../../../hooks/auth/useAuth";
 
 const sx = {
   alert: { width: "100%" }

@@ -1,7 +1,10 @@
 FROM node:bullseye-slim
-WORKDIR /src/app
-COPY package.json .
-RUN npm i
+
+# Create app directory
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
 COPY . .
-CMD ["node", "index.js"]
+
 EXPOSE 8001
+CMD [ "npm", "start" ]

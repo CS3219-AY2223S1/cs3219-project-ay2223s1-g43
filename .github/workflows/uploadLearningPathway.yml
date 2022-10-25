@@ -1,8 +1,10 @@
-name: Upload to ECR
+name: Upload learning-pathway to ECR
 
 on: 
   push:
     branches: [ main ]
+    paths:
+      - learning-pathway/**
 
 jobs:
   build:
@@ -18,16 +20,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-1
     
-      - name: Login rto Amazon ECR
+      - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
     
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: user
+          ECR_REPOSITORY: learning-pathway
           IMAGE_TAG: latest
         run: |
-          cd user-service/
+          cd learning-pathway/
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

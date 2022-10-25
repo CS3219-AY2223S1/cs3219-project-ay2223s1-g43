@@ -10,8 +10,8 @@ const useAuth = () => {
   };
 
   const logIn = async (username, password) => {
-    const refreshToken = await usersAPI.handleLogIn(username, password);
-    setLogIn(username)
+    const { userId, refreshToken } = await usersAPI.handleLogIn(username, password);
+    setLogIn(username, userId)
     localStorage.setItem(refreshTokenKey, refreshToken)
   }
 
@@ -33,9 +33,9 @@ const useAuth = () => {
   const authenticate = async () => {
     const refreshToken = localStorage.getItem(refreshTokenKey)
     if (refreshToken) {
-      const username = await usersAPI.handleAuthenticate(refreshToken)
-      if (username) {
-        setLogIn(username)
+      const {username, userId} = await usersAPI.handleAuthenticate(refreshToken)
+      if (username && userId) {
+        setLogIn(username, userId)
       } else {
         localStorage.removeItem(refreshTokenKey)
       }

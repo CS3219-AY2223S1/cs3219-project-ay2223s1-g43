@@ -1,6 +1,6 @@
 import { MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../../hooks/auth/useAuth";
+import useAuth from "../../../../hooks/auth/useAuth";
 
 const LogOutButton = (props) => {
   const { setErrorDialog } = props;

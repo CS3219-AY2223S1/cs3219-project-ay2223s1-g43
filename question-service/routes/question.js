@@ -1,85 +1,28 @@
-const router = require('express').Router();
-let EasyQuestion = require('../models/easyQuestion.model');
-let MediumQuestion = require('../models/mediumQuestion.model');
-let HardQuestion = require('../models/hardQuestion.model');
-var seedrandom = require('seedrandom');
+import express from "express";
+import { createQuestionValidator, getQuestionValidator, getRandomQuestionValidator } from "../middleware/validator.js";
+import getRandomQuestion from "../controllers/getRandomQuestion.js";
+import createQuestion from "../controllers/createQuestion.js";
+import getQuestion from "../controllers/getQuestion.js";
 
-router.route('/getEasy').post((req, res) => {
-    const { id } = req.body;
-    const rng = seedrandom(id);
-    EasyQuestion.find()
-        .then(question => {
-            res.json(question[Math.floor(rng() * question.length)])
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
+const QuestionRouter = express.Router();
+
+QuestionRouter.get("/", (_, res) => {
+    res.send("Hello World from question service");
 });
 
-router.route('/getMedium').post((req, res) => {
-    const { id } = req.body;
-    const rng = seedrandom(id);
-    MediumQuestion.find()
-        .then(question => {
-            res.json(question[Math.floor(rng() * question.length)])
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-});
+QuestionRouter.get("/:difficulty/:id",
+    getQuestionValidator,
+    getQuestion,
+);
 
-router.route('/getHard').post((req, res) => {
-    const { id } = req.body;
-    const rng = seedrandom(id);
-    HardQuestion.find()
-        .then(question => {
-            res.json(question[Math.floor(rng() * question.length)])
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-});
+QuestionRouter.get("/random/:difficulty/:uuid",
+    getRandomQuestionValidator,
+    getRandomQuestion,
+);
 
-router.route('/postEasy').post((req, res) => {
-    const id = req.body.id;
-    const title = req.body.title;
-    const body = req.body.body;
+QuestionRouter.post("/:difficulty",
+    createQuestionValidator,
+    createQuestion,
+);
 
-    const newQuestion = new EasyQuestion({
-        id,
-        title,
-        body,
-    });
-
-    newQuestion.save()
-        .then(() => res.json('Question with easy difficulty added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
-router.route('/postMedium').post((req, res) => {
-    const id = req.body.id;
-    const title = req.body.title;
-    const body = req.body.body;
-
-    const newQuestion = new MediumQuestion({
-        id,
-        title,
-        body,
-    });
-
-    newQuestion.save()
-        .then(() => res.json('Question with medium difficulty added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
-router.route('/postHard').post((req, res) => {
-    const id = req.body.id;
-    const title = req.body.title;
-    const body = req.body.body;
-
-    const newQuestion = new HardQuestion({
-        id,
-        title,
-        body,
-    });
-
-    newQuestion.save()
-        .then(() => res.json('Question with hard difficulty added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
-module.exports = router;
+export default QuestionRouter

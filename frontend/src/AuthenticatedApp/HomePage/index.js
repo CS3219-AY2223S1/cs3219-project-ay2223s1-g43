@@ -1,12 +1,12 @@
-import Header from "../../components/Header";
-import AvatarMenu from "../../components/Header/AvatarMenu";
+import AuthenticatedHeader from "../components/Header/AuthenticatedHeader";
 import ChooseDifficultyPage from "./ChooseDifficultyPage";
 
 const HomePage = () => {
+
   return (
     <>
-      <Header rightContent={<AvatarMenu />} />
-      <ChooseDifficultyPage/>
+      <AuthenticatedHeader />
+      <ChooseDifficultyPage />
     </>
   )
 }
