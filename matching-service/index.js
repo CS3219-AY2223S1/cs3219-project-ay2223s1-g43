@@ -9,15 +9,19 @@ const cors = require('cors')
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: {
-    origin: 'http://localhost:3000' // might need to change this later
-  }
+  path: '/api/matching',
+  maxHttpBufferSize: 1024,
 })
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors()) // config cors so that front-end can use
 app.options('*', cors())
+
+//health check
+app.get("/", (_, res) => {
+  res.send("Hello World from matching service");
+});
 
 // socket array
 let socketArr = [] // an element will look like { socketId: ___, userName: ___ }
@@ -29,12 +33,12 @@ const addSocketObj = (userName, socketId) => {
     userName,
     socketId,
   })
-}
+};
 
 const getSocketIdForUser = (userName) => {
   const socketObjForUser = socketArr.find(socketObj => socketObj.userName === userName);
   return socketObjForUser.socketId;
-}
+};
 
 
 io.on("connection", (socket) => {
