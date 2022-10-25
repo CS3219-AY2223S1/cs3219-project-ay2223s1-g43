@@ -36,6 +36,10 @@ const getSocketIdForUser = (userName) => {
   return socketObjForUser.socketId;
 }
 
+app.get("/api/matching", (req, res) => {
+  res.send("Hello world from matching service");
+})
+
 
 io.on("connection", (socket) => {
 
