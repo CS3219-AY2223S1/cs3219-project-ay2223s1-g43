@@ -3,6 +3,8 @@ const { deletePendingMatch, deleteMatch, insertNewPendingMatch, isMatchAvailable
 const { sequelize } = require('./repository.js')
 const { v4: uuidv4 } = require('uuid')
 
+const ORIGIN_URL = process.env.ORIGIN_URL || "localhost:3000/";
+
 const { Server } = require("socket.io");
 const express = require('express');
 const cors = require('cors')
@@ -11,12 +13,20 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   path: '/api/matching',
   maxHttpBufferSize: 1024,
+  cors: {
+    origin: [new RegExp("http://" + ORIGIN_URL + "*"), new RegExp("https://" + ORIGIN_URL + "*")],
+    methods: ["GET", "POST"]
+  }
 })
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(cors()) // config cors so that front-end can use
-app.options('*', cors())
+app.use(
+  cors({
+    credentials: true,
+    origin: [new RegExp("http://" + ORIGIN_URL + "*"), new RegExp("https://" + ORIGIN_URL + "*")]
+  })
+);
 
 //health check
 app.get("/", (_, res) => {

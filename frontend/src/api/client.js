@@ -8,7 +8,7 @@ export const userService = axios.create({
   timeout: 5000
 })
 
-const QUESTION_SERVICE_URL = process.env.QUESTION_SERVICE_URL || 'http://localhost:5000'
+const QUESTION_SERVICE_URL = process.env.QUESTION_SERVICE_URL || 'http://localhost:8003'
 
 export const questionService = axios.create({
   baseURL: QUESTION_SERVICE_URL,
