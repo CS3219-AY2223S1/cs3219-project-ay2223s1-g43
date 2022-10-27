@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import AvatarMenu from "../../components/Header/AvatarMenu";
+import SettingsMenu from "../../components/Header/SettingsMenu";
 import LeaveButton from "./LeaveButton";
 
 const sx = {
@@ -26,7 +26,7 @@ const RoomPageHeader = () => {
       sx={sx.header}
     >
       <LeaveButton/>
-      <AvatarMenu />
+      <SettingsMenu />
     </Stack>
   )
 }

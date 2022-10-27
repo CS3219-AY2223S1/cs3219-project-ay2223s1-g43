@@ -5,6 +5,8 @@ import * as Y from 'yjs'
 import { useAuthContext } from "./auth/useAuthContext";
 import useQuestion from "./useQuestion";
 import { learningPathwayAPI } from "../api/learningPathway";
+import { dracula } from "@uiw/codemirror-theme-dracula";
+import { EDITOR_LANGUAGE_OPTIONS } from "../utils/constants";
 
 export const RoomContext = createContext(null);
 
@@ -12,12 +14,15 @@ export const useRoomContextProvider = () => {
   const [partnerUsername, setPartnerUsername] = useState("");
   const [question, setQuestion] = useState(null);
   const [timeStamp, setTimestamp] = useState(() => (new Date()).toISOString());
+
   const [codeDoc, setCodeDoc] = useState(() => {
     const ydoc = new Y.Doc();
     const yText = ydoc.getText("codemirror");
 
     return { ydoc, yText }
   });
+  const [ editorTheme, setEditorTheme ] = useState(dracula)
+  const [ editorLanguage, setEditorLanguage ] = useState(EDITOR_LANGUAGE_OPTIONS[1].value)
 
   const { getQuestion } = useQuestion();
   const { userDetails } = useAuthContext();
@@ -48,7 +53,18 @@ export const useRoomContextProvider = () => {
     };
   }, [])
 
-  return { partnerUsername, question, room, ydoc: codeDoc.ydoc, yText: codeDoc.yText, saveRecord };
+  return {
+    partnerUsername,
+    question,
+    room,
+    ydoc: codeDoc.ydoc,
+    yText: codeDoc.yText,
+    editorTheme,
+    setEditorTheme,
+    editorLanguage,
+    setEditorLanguage,
+    saveRecord,
+  };
 };
 
 export const useRoomContext = () => {
