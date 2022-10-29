@@ -35,7 +35,7 @@ const Editor = (props) => {
       width='100%'
       theme={editorTheme}
       extensions={[
-        (editorLanguage.language)(),
+        (editorLanguage.value.language)(),
         yCollab(yText, provider.awareness, { yUndoManager })
       ]}
     />

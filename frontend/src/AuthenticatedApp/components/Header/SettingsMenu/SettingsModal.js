@@ -1,7 +1,9 @@
-import { javascript } from "@codemirror/lang-javascript";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import socket from "../../../../api/matching";
 import { useRoomContext } from "../../../../hooks/useRoomContext";
 import { EDITOR_LANGUAGE_OPTIONS, EDITOR_THEME_OPTIONS } from "../../../../utils/constants";
+import { useState } from "react";
+import { useAuthContext } from "../../../../hooks/auth/useAuthContext";
 
 const sx = {
   lang: {
@@ -15,14 +17,25 @@ const sx = {
 const SettingsModal = (props) => {
   const { open, handleClose } = props
   const { editorTheme, setEditorTheme, editorLanguage, setEditorLanguage } = useRoomContext()
+  const [tempTheme, setTempTheme] = useState(editorTheme)
+  const [tempLang, setTempLang] = useState(editorLanguage)
+  const {userDetails }  = useAuthContext()
 
   const handleLangChange = (event) => {
-    setEditorLanguage(event.target.value);
+    setTempLang(event.target.value);
   };
 
   const handleThemeChange = (event) => {
-    setEditorTheme(event.target.value);
+    setTempTheme(event.target.value);
   };
+
+  const confirmSettings = () => {
+    setEditorLanguage(tempLang);
+    setEditorTheme(tempTheme);
+
+    socket.emit('language changed', { userName: userDetails.username, language: tempLang.name });
+    handleClose()
+  }
 
   return (
     <Dialog
@@ -42,12 +55,12 @@ const SettingsModal = (props) => {
           <Select
             labelId="theme-select-label"
             id="theme-simple-select"
-            value={editorLanguage}
+            value={tempLang}
             label="Editor Language"
             onChange={handleLangChange}
           >
             {EDITOR_LANGUAGE_OPTIONS.map(option => (
-              <MenuItem key={option.name} value={option.value}>{option.name}</MenuItem>
+              <MenuItem key={option.name} value={option}>{option.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -67,7 +80,10 @@ const SettingsModal = (props) => {
         </FormControl>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} autoFocus>
+      <Button onClick={handleClose} autoFocus>
+          Cancel
+        </Button>
+        <Button onClick={confirmSettings} autoFocus>
           Confirm
         </Button>
       </DialogActions>
