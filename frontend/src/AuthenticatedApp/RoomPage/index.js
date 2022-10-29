@@ -5,25 +5,37 @@ import RoomPageHeader from "./Header";
 import RoomPageContent from "./Content";
 import { Alert, Snackbar } from "@mui/material";
 import { RoomContext, useRoomContext, useRoomContextProvider } from "../../hooks/useRoomContext";
+import { EDITOR_LANGUAGE_OPTIONS } from "../../utils/constants";
 
 const sx = {
   alert: { width: "100%" }
 }
 
 const RoomPage = () => {
-  const { partnerUsername } = useRoomContext()
+  const { partnerUsername, editorLanguage, setEditorLanguage } = useRoomContext()
+  const { userDetails} = useAuthContext();
 
-  const { userDetails } = useAuthContext();
-
-  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [openUserLeftSnackbar, setOpenUserLeftSnackbar] = useState(false)
+  const [openLanguageSnackbar, setOpenLanguageSnackbar] = useState(false)
 
   socket.on('disconnect', () => {
     socket.emit('user disconnected', { userName: userDetails.username });
   });
 
   socket.on('matched user left room', () => {
-    setOpenSnackbar(true)
+    setOpenUserLeftSnackbar(true)
   })
+
+  socket.on('language changed', ({ language }) => {
+    setEditorLanguage(EDITOR_LANGUAGE_OPTIONS.find(o => o.name === language))
+    // TODO: update language settings in settings modal too
+  })
+
+  useEffect(() => {
+    if (editorLanguage) {
+      setOpenLanguageSnackbar(true)
+    }
+  }, [editorLanguage])
 
   const alertUser = (e) => {
     e.preventDefault()
@@ -41,15 +53,21 @@ const RoomPage = () => {
     }
   }, [])
 
-  const closeSnackbar = () => setOpenSnackbar(false);
+  const closeUserLeftSnackbar = () => setOpenUserLeftSnackbar(false);
+  const closeLanguageSnackbar = () => setOpenLanguageSnackbar(false);
 
   return (
     <>
       <RoomPageHeader />
       <RoomPageContent />
-      <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={closeSnackbar}>
-        <Alert onClose={closeSnackbar} variant="filled" severity="info" color="primary" sx={sx.alert}>
+      <Snackbar open={openUserLeftSnackbar} autoHideDuration={5000} onClose={closeUserLeftSnackbar}>
+        <Alert onClose={closeUserLeftSnackbar} variant="filled" severity="info" color="primary" sx={sx.alert}>
           {`Partner ${partnerUsername} has left room`}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openLanguageSnackbar} autoHideDuration={5000} onClose={closeLanguageSnackbar}>
+        <Alert onClose={closeLanguageSnackbar} variant="filled" severity="info" color="primary" sx={sx.alert}>
+          {`Editor language set to ${editorLanguage.name}`}
         </Alert>
       </Snackbar>
     </>

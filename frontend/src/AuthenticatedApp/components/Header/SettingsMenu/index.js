@@ -27,10 +27,10 @@ const SettingsMenu = () => {
           size="small"
           sx={sx.iconButton}
         >
-          <SettingsIcon/>
+          <SettingsIcon />
         </IconButton>
       </Box>
-      <SettingsModal open={open} handleClose={handleClose} />
+      {open && <SettingsModal open={open} handleClose={handleClose} />}
     </>
   )
 }

@@ -14,6 +14,7 @@ const io = new Server(httpServer, {
   path: '/api/matching',
   maxHttpBufferSize: 1024,
   cors: {
+    credentials: true,
     origin: [new RegExp("http://" + ORIGIN_URL + "*"), new RegExp("https://" + ORIGIN_URL + "*")],
     methods: ["GET", "POST"]
   }
@@ -108,6 +109,20 @@ io.on("connection", (socket) => {
     callback({
       partnerUsername: nameOfOtherUser
     });
+  })
+
+  // frontend MUST emit this event when a user changes the language used
+  socket.on('language changed', async ({ userName, language }) => {
+    console.log("language changed")
+    // emit to the other user so that he/she will leave the room
+    const nameOfOtherUser = await getNameOfUserMatchedTo(userName);
+
+    console.log(nameOfOtherUser)
+
+    if (nameOfOtherUser) {
+      const socketIdOfOtherUser = getSocketIdForUser(nameOfOtherUser);
+      io.to(socketIdOfOtherUser).emit('language changed', { language });
+    }
   })
 
   // frontend MUST emit this event when a user that is matched has logged out or chose to leave the room

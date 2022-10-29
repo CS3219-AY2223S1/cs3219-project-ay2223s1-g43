@@ -22,7 +22,7 @@ export const useRoomContextProvider = () => {
     return { ydoc, yText }
   });
   const [ editorTheme, setEditorTheme ] = useState(dracula)
-  const [ editorLanguage, setEditorLanguage ] = useState(EDITOR_LANGUAGE_OPTIONS[1].value)
+  const [ editorLanguage, setEditorLanguage ] = useState(EDITOR_LANGUAGE_OPTIONS[1])
 
   const { getQuestion } = useQuestion();
   const { userDetails } = useAuthContext();
@@ -46,6 +46,7 @@ export const useRoomContextProvider = () => {
     socket.emit('get partner name', { userName: userDetails.username }, (response) => {
       setPartnerUsername(response.partnerUsername)
     });
+
     return () => {
       if (codeDoc && codeDoc.ydoc) {
         codeDoc.ydoc.destroy();
