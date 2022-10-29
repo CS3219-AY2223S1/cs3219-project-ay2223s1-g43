@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.ts",
     "start": "ts-node index.ts",
-    "test": "ENV=PROD SECRET_KEY=TEST ts-mocha --timeout 10000 tests/*.ts --exit",
+    "test": "ENV=TEST SECRET_KEY=TEST ts-mocha --timeout 10000 tests/*.ts --exit",
     "prettier": "prettier --write ./**/*.ts --list-different"
   },
   "keywords": [],
