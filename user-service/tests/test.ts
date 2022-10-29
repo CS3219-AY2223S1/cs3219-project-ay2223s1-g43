@@ -8,6 +8,12 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('/api/user', () => {
+  beforeEach((done) => {
+    UserModel.deleteMany({}, () => {
+      done();
+    })
+  });
+  
   describe('Create account', () => {
     it('Should not create account with missing parameter', (done) => {
       chai.request(app)

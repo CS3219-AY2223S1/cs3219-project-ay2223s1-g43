@@ -6,7 +6,7 @@ import "dotenv/config";
 const mongoDB =
   process.env.ENV == "PROD"
     ? process.env.DB_CLOUD_URI
-    : process.env.DB_LOCAL_URI;
+    : process.env.DB_TEST_URI;
 
 mongoose.connect(`${mongoDB}`, { autoIndex: false });
 
