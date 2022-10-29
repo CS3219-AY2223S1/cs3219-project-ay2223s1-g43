@@ -45,3 +45,5 @@ app.use("/api/user", (_, res) => {
 });
 
 app.listen(8000, () => console.log("user-service listening on port 8000"));
+
+export default app;
