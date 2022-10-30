@@ -33,3 +33,9 @@ jobs:
           cd user-service
           npm install
           npm run test
+      
+      - name: Run All learning pathway Tests
+        run: |
+          cd learning-pathway
+          npm install
+          npm run test
