@@ -1,10 +1,9 @@
 import app from '../index.js';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import difficulties from "../model/difficulties.js";
+import { DIFFICULTIES, LANGUAGES }  from "../model/constants.js";
 import mongoose from 'mongoose';
 import recordModel from '../model/record-model.js';
-
 
 chai.use(chaiHttp);
 chai.should();
@@ -17,26 +16,28 @@ describe('/api/record', () => {
   });
 
   const validRecord = {
-    user_id: new mongoose.Types.ObjectId(), 
-    partner_username: 'test1234', 
-    question_difficulty: difficulties.EASY, 
+    user_id: new mongoose.Types.ObjectId(),
+    partner_username: 'test1234',
+    question_difficulty: DIFFICULTIES.EASY,
     question_id: 1234,
-    question_title: 'test', 
-    code: 'test', 
+    question_title: 'test',
+    code: 'test',
+    code_language: LANGUAGES.JAVA,
     timestamp: (new Date()).toISOString()
   };
 
   const invalidRecord = {
-    user_id: new mongoose.Types.ObjectId(), 
-    partner_username: 'test1234', 
-    question_difficulty: 'random', 
+    user_id: new mongoose.Types.ObjectId(),
+    partner_username: 'test1234',
+    question_difficulty: 'random',
     question_id: 1234,
-    question_title: 'test', 
-    code: 'test', 
+    question_title: 'test',
+    code: 'test',
+    code_language: LANGUAGES.JAVA,
     timestamp: (new Date()).toISOString()
   };
 
-  describe('Create new record',() => {
+  describe('Create new record', () => {
     it('Should not create record', (done) => {
       chai.request(app)
         .post('/api/record')
