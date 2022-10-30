@@ -42,3 +42,5 @@ router.delete("/:userId",
 app.use("/api/record", router);
 
 app.listen(PORT, () => console.log(`learning-pathway listening on port ${PORT}`));
+
+export default app;
