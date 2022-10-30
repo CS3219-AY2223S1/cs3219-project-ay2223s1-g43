@@ -4,6 +4,7 @@ import app from '../index.js';
 import mongoose from 'mongoose';
 import difficulties from "../model/difficulties.js";
 import recordModel from '../model/record-model.js';
+import { describe } from 'mocha';
 
 
 chai.use(chaiHttp);
@@ -58,6 +59,50 @@ describe('/api/record', () => {
           res.body.message.should.equal('New record created successfully!');
           done();
         });
+    });
+  });
+
+  describe('Get record', () => {
+    it('Should get empty record for invalid user id', (done) => {
+      chai.request(app)
+        .get('/api/record/' + invalidRecord.user_id.toString())
+        .end((err, res) => {
+          chai.expect(err).to.be.null;
+          res.should.have.status(200);
+          res.body.records.length.should.equal(0);
+          done();
+        });
+    });
+
+    it('Should get record for valid user id', (done) => {
+      chai.request(app)
+        .get('/api/record/' + validRecord.user_id.toString())
+        .end((err, res) => {
+          chai.expect(err).to.be.null;
+          res.should.have.status(200);
+          res.body.records.length.should.equal(1);
+          res.body.records[0].timestamp.should.equal(validRecord.timestamp);
+          done();
+        });
+    });
+  });
+
+  describe('Delete record', () => {
+    it('Should delete records', (done) => {
+      chai.request(app)
+        .delete('/api/record/' + validRecord.user_id.toString())
+        .end((err, res) => {
+          chai.expect(err).to.be.null;
+          res.should.have.status(200);
+        })
+      chai.request(app)
+        .get('/api/record/' + invalidRecord.user_id.toString())
+        .end((err, res) => {
+          chai.expect(err).to.be.null;
+          res.should.have.status(200);
+          res.body.records.length.should.equal(0);
+          done();
+        })
     });
   });
 });
