@@ -1,10 +1,10 @@
-import { createRecord, deleteUserRecords, getUserRecords, updateRecordComment } from "./repository.js";
+import { createRecord, deleteUserRecords, getUserRecords } from "./repository.js";
 
 export async function ormCreateRecord(user_id, partner_username, question_difficulty,
-  question_id, question_title, code, timestamp) {
+  question_id, question_title, code, code_language, timestamp) {
   try {
     const newRecord = createRecord(user_id, partner_username, question_difficulty,
-      question_id, question_title, code, timestamp);
+      question_id, question_title, code, code_language, timestamp);
     await newRecord.save();
     return null;
   } catch (err) {

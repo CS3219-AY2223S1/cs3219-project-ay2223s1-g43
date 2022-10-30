@@ -17,7 +17,7 @@ export const learningPathwayAPI = {
       throw new ResponseException('Please try again later')
     }
   },
-  handleAddRecord: async (userId, partnerUsername, questionDifficulty, questionId, questionTitle, code, timestamp) => {
+  handleAddRecord: async (userId, partnerUsername, questionDifficulty, questionId, questionTitle, code, code_language, timestamp) => {
     try {
       const newRecord = {
         user_id: userId,
@@ -26,6 +26,7 @@ export const learningPathwayAPI = {
         question_id: questionId,
         question_title: questionTitle,
         code,
+        code_language,
         timestamp
       }
       const res = await learningPathwayService.post(PREFIX_RECORD_SVC, newRecord);

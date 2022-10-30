@@ -13,7 +13,7 @@ let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 export function createRecord(user_id, partner_username, question_difficulty,
-  question_id, question_title, code, timestamp) {
+  question_id, question_title, code, code_language, timestamp) {
   return new recordModel({
     user_id,
     partner_username,
@@ -21,20 +21,10 @@ export function createRecord(user_id, partner_username, question_difficulty,
     question_id,
     question_title,
     code,
+    code_language,
     timestamp,
     comment: ""
   });
-}
-
-export async function updateRecordComment(id, comment) {
-  const record = await recordModel
-    .findOneAndUpdate(
-      { _id: id },
-      { comment },
-      { new: true }
-    )
-    .exec();
-  return record;
 }
 
 export async function getUserRecords(user_id) {

@@ -1,5 +1,5 @@
 import { check } from "express-validator";
-import DIFFICULTIES from "../model/difficulties.js";
+import { DIFFICULTIES, LANGUAGES } from "../model/constants.js";
 
 export const createRecordValidator = [
   check('user_id').notEmpty().isMongoId(),
@@ -13,6 +13,12 @@ export const createRecordValidator = [
   check('question_id').notEmpty().isNumeric(),
   check('question_title').notEmpty(),
   check('code').exists(),
+  check('code_language').custom(value => {
+    if (value === LANGUAGES.JAVA || value === LANGUAGES.JAVASCRIPT || value === LANGUAGES.PYTHON) {
+      return true;
+    }
+    throw new Error('Code language must be either \"JAVA\", \"JAVASCRIPT\", or \"PYTHON\"');
+  }),
   check('timestamp').notEmpty().isISO8601().toDate(),
 ]
 

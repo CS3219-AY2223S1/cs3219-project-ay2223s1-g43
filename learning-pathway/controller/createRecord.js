@@ -10,10 +10,10 @@ export default async function createRecord(req, res) {
 
   try {
     const { user_id, partner_username, question_difficulty, question_id,
-      question_title, code, timestamp } = req.body;
+      question_title, code, code_language, timestamp } = req.body;
 
     const resp = await ormCreateRecord(user_id, partner_username, question_difficulty,
-      question_id, question_title, code, timestamp);
+      question_id, question_title, code, code_language, timestamp);
 
     if (resp === null) {
       return res

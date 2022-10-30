@@ -1,26 +1,23 @@
 import { Box, Collapse, Grid, TableCell, TableRow } from "@mui/material"
 import CodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
-import { javascript } from '@codemirror/lang-javascript';
 import RecordRowQuestion from "./RecordRowQuestion";
 import QuestionDisplaySkeleton from "../../../components/QuestionDisplay/QuestionDisplaySkeleton";
+import { EDITOR_LANGUAGE_OPTIONS } from "../../../../utils/constants";
 
 const sx = {
   box: {
     my: 3,
     height: "100%",
     width: "100%",
-    // backgroundColor: "cyan",
   },
   cell: {
     paddingBottom: 0,
     paddingTop: 0,
-    // backgroundColor: "cyan",
   },
   fullSize: {
     height: "100%",
     width: "100%",
-    // backgroundColor: "cyan",
   },
   gridItem: {
     px: 1
@@ -28,7 +25,7 @@ const sx = {
 }
 
 const RecordRowDetails = (props) => {
-  const { open, code, questionId, questionDifficulty } = props
+  const { open, code, codeLanguage, questionId, questionDifficulty } = props
 
   return (
     <TableRow>
@@ -47,7 +44,7 @@ const RecordRowDetails = (props) => {
                   width='100%'
                   theme={dracula}
                   extensions={[
-                    javascript({ jsx: true }),
+                    (EDITOR_LANGUAGE_OPTIONS.find(o => o.name.toUpperCase() === codeLanguage)?.value?.language()),
                   ]}
                   editable={false}
                   readOnly

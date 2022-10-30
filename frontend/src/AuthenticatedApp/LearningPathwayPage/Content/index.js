@@ -2,6 +2,7 @@ import { Container, Grid, Stack } from "@mui/material";
 import useRecords from "../../../hooks/useRecords";
 import DifficultySummary from "./DifficultySummary";
 import FrequencySummary from "./FrequencySummary";
+import NoRecordDisplay from "./NoRecordDisplay";
 import RecordTable from "./RecordTable";
 
 const sx = {
@@ -22,24 +23,27 @@ const LearningPathwayContent = () => {
 
   return (
     <Container maxWidth="xl" sx={sx.content}>
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-        sx={sx.fullWidth}
-      >
-        <Grid container rowSpacing={2} columnSpacing={4}>
-          <Grid item xs={12} md={6}>
-            <DifficultySummary diffMap={diffMap}/>
+      {records && records.length === 0
+        ? <NoRecordDisplay />
+        :
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          sx={sx.fullWidth}
+        >
+          <Grid container rowSpacing={2} columnSpacing={4}>
+            <Grid item xs={12} md={6}>
+              <DifficultySummary diffMap={diffMap} />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FrequencySummary freqMap={freqMap} />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <FrequencySummary freqMap={freqMap}/>
-          </Grid>
-        </Grid>
-        {records ? <RecordTable data={records}/> : ""}
-      </Stack>
-
+          <RecordTable data={records} />
+        </Stack>
+      }
     </Container>
   )
 }

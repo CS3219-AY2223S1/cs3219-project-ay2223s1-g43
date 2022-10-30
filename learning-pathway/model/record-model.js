@@ -1,5 +1,5 @@
 import mongoose, { model, Types, Schema } from "mongoose";
-import DIFFICULTIES from "./difficulties.js";
+import { DIFFICULTIES, LANGUAGES } from "../model/constants.js";
 
 // Workaround to ensure empty strings are allowed
 mongoose.Schema.Types.String.checkRequired(v => typeof v === 'string');
@@ -28,6 +28,11 @@ const recordSchema = new Schema({
   },
   code: {
     type: String,
+    required: true,
+  },
+  code_language: {
+    type: String,
+    enum: [LANGUAGES.JAVA, LANGUAGES.JAVASCRIPT, LANGUAGES.PYTHON],
     required: true,
   },
   timestamp: {
