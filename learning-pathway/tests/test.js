@@ -1,10 +1,9 @@
+import app from '../index.js';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index.js';
-import mongoose from 'mongoose';
 import difficulties from "../model/difficulties.js";
+import mongoose from 'mongoose';
 import recordModel from '../model/record-model.js';
-import { describe } from 'mocha';
 
 
 chai.use(chaiHttp);
