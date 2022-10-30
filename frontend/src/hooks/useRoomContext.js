@@ -32,7 +32,7 @@ export const useRoomContextProvider = () => {
 
   const saveRecord = async () => {
     await learningPathwayAPI.handleAddRecord(userDetails.userId, partnerUsername, difficulty.toUpperCase(),
-      question.id, question.title, codeDoc.yText.toString(), timeStamp)
+      question.id, question.title, codeDoc.yText.toString(), editorLanguage.name.toUpperCase(), timeStamp)
   }
 
   useEffect(() => {

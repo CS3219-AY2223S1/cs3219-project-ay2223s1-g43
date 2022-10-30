@@ -1,5 +1,11 @@
-import { Paper, Table, TableContainer, TableHead, TableCell, TableBody, TableRow } from "@mui/material"
+import { CircularProgress, Paper, Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Box, } from "@mui/material"
 import RecordRow from "./RecordRow"
+
+const sx = {
+  loadingRow: {
+    py: 8
+  }
+}
 
 const RecordTable = (props) => {
   const { data } = props
@@ -17,9 +23,20 @@ const RecordTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <RecordRow key={row._id} row={row} />
-          ))}
+          {data ?
+            data.map((row) => (
+              <RecordRow key={row._id} row={row} />
+            ))
+            : <TableRow>
+            <TableCell
+              align="center"
+              colSpan={6}
+              sx={sx.loadingRow}
+              >
+              <CircularProgress />
+            </TableCell>
+          </TableRow>
+          }
         </TableBody>
       </Table>
     </TableContainer>
