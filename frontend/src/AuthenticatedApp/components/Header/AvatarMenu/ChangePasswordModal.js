@@ -165,7 +165,7 @@ const ChangePasswordModal = (props) => {
         </form>
       </Dialog>
       <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={closeSnackbar}>
-        <Alert onClose={closeSnackbar} variant="filled" severity="success" sx={sx.alert}>
+        <Alert onClose={closeSnackbar} variant="filled" severity="success" sx={sx.alert} color="primary">
           Password was changed successfully!
         </Alert>
       </Snackbar>
