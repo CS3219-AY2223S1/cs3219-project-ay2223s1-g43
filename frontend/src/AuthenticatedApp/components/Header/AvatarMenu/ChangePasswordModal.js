@@ -28,8 +28,14 @@ const sx = {
 }
 
 const schema = yup.object({
-  oldPassword: yup.string().required("No password provided").min(5, "Password should be at least 5 characters"),
-  newPassword: yup.string().required("No password provided").min(5, "Password should be at least 5 characters"),
+  oldPassword: yup.string().required("No password provided").matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/,
+    "Password should be at least 8 characters long, and contain at least 1 uppercase and 1 lowercase character."
+  ),
+  newPassword: yup.string().required("No password provided").matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/,
+    "Password should be at least 8 characters long, and contain at least 1 uppercase and 1 lowercase character."
+  ),
 }).required();
 
 const ChangePasswordModal = (props) => {
@@ -74,6 +80,8 @@ const ChangePasswordModal = (props) => {
       <Dialog
         open={isDialogOpen}
         onClose={closeFormDialog}
+        maxWidth="xs"
+        fullWidth
       >
         <form onSubmit={handleSubmit(changeUserPassword)}>
           <DialogTitle>Change Password</DialogTitle>
@@ -114,7 +122,7 @@ const ChangePasswordModal = (props) => {
                       {...field}
                       label="Old Password"
                     />
-                    <FormHelperText >{errors.password?.message}</FormHelperText>
+                    <FormHelperText >{errors.oldPassword?.message}</FormHelperText>
                   </FormControl>
                 }
               />
@@ -144,7 +152,7 @@ const ChangePasswordModal = (props) => {
                       {...field}
                       label="New Password"
                     />
-                    <FormHelperText >{errors.password?.message}</FormHelperText>
+                    <FormHelperText >{errors.newPassword?.message}</FormHelperText>
                   </FormControl>
                 }
               />
