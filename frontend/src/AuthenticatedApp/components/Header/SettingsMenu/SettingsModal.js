@@ -69,7 +69,7 @@ const SettingsModal = (props) => {
           <Select
             labelId="theme-select-label"
             id="theme-simple-select"
-            value={editorTheme}
+            value={tempTheme}
             label="Editor Theme"
             onChange={handleThemeChange}
           >
