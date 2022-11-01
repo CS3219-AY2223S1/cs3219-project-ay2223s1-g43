@@ -25,7 +25,7 @@ router.get("/", (_, res) => {
   res.send("Hello World from user-service");
 });
 router.post("/", 
-  body("password").trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
+  body("password").isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
   users.createUser
 );
 router.delete("/", auth.authorization, users.deleteUser);
@@ -34,7 +34,7 @@ router.post("/login", users.loginUser);
 router.get("/logout", auth.authorization, users.logoutUser);
 router.put("/change_password", 
   auth.authorization, 
-  body("newPassword").trim().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
+  body("newPassword").isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
   users.changePassword
 );
 
