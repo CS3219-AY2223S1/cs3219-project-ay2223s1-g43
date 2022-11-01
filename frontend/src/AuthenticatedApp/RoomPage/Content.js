@@ -1,7 +1,9 @@
-import { Box, Container, Grid } from "@mui/material"
+import { Box, Container, Grid, useMediaQuery } from "@mui/material"
 import QuestionDisplay from "../components/QuestionDisplay"
 import Editor from "../components/Editor";
 import { useRoomContext } from "../../hooks/useRoomContext";
+import { useTheme } from "@emotion/react";
+import QuestionDisplayModal from "../components/QuestionDisplay/QuestionDisplayModal";
 
 const sx = {
   content: {
@@ -15,16 +17,22 @@ const sx = {
 
 const RoomPageContent = () => {
   const { question, room, ydoc, yText, editorTheme, editorLanguage } = useRoomContext();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Container maxWidth="xl" sx={sx.content}>
       <Grid container columnSpacing={4}>
-        <Grid item xs={6} md={6}>
-          <Box sx={sx.column}>
-            <QuestionDisplay question={question} />
-          </Box>
+        <Grid item xs={12} md={6}>
+          {matches
+            ? <QuestionDisplayModal question={question} />
+            : <Box sx={sx.column}>
+              <QuestionDisplay question={question} />
+            </Box>
+          }
         </Grid>
-        <Grid item xs={6} md={6}>
+
+        <Grid item xs={12} md={6}>
           <Box sx={sx.column}>
             <Editor
               room={room}
