@@ -18,9 +18,9 @@ export default async function deleteQuestion(req, res) {
         ? await ormDeleteMediumQuestion(id)
         : await ormDeleteHardQuestion(id)
     
-    if (!resp) {
+    if (resp) {
       return res
-        .status(201)
+        .status(200)
         .json({ message: success_msg.DELETE_SUCCESS_MESSAGE });
     } else {
       return res.status(400).json({ message: error_msg.DELETION_ERROR });
