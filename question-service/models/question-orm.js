@@ -7,7 +7,10 @@ import {
   getRandomHardQuestion,
   getEasyQuestionById,
   getMediumQuestionById,
-  getHardQuestionById
+  getHardQuestionById,
+  deleteEasyQuestion,
+  deleteMediumQuestion,
+  deleteHardQuestion,
 } from "./repository.js";
 
 export async function ormCreateEasyQuestion(id, title, body) {
@@ -38,6 +41,21 @@ export async function ormCreateHardQuestion(id, title, body) {
   } catch (err) {
     return { err };
   }
+}
+
+export async function ormDeleteEasyQuestion(id) {
+  const deletedQuestion = await deleteEasyQuestion(id);
+  return deletedQuestion
+}
+
+export async function ormDeleteMediumQuestion(id) {
+  const deletedQuestion = await deleteMediumQuestion(id);
+  return deletedQuestion
+}
+
+export async function ormDeleteHardQuestion(id) {
+  const deletedQuestion = await deleteHardQuestion(id);
+  return deletedQuestion
 }
 
 export async function ormGetRandomEasyQuestion(randomNumber) {

@@ -6,7 +6,7 @@ import "dotenv/config";
 
 const uri = process.env.ENV == "PROD"
   ? process.env.DB_CLOUD_URI
-  : process.env.DB_LOCAL_URI;
+  : 'mongodb://localhost:27017/test';
 mongoose.connect(uri, { useNewUrlParser: true });
 
 const connection = mongoose.connection;
@@ -27,6 +27,21 @@ export function createMediumQuestion(id, title, body) {
 export function createHardQuestion(id, title, body) {
   const newQuestion = new HardQuestion({ id, title, body });
   return newQuestion;
+}
+
+export async function deleteEasyQuestion(id) {
+  const question = await EasyQuestion.findOneAndDelete({ id: id }).exec();
+  return question;
+}
+
+export async function deleteMediumQuestion(id) {
+  const question = await MediumQuestion.findOneAndDelete({ id: id }).exec();
+  return question;
+}
+
+export async function deleteHardQuestion(id) {
+  const question = await HardQuestion.findOneAndDelete({ id: id }).exec();
+  return question;
 }
 
 export async function getRandomEasyQuestion(randomNumber) {

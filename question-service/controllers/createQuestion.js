@@ -12,7 +12,6 @@ export default async function createQuestion(req, res) {
   try {
     const { difficulty } = req.params;
     const { id, title, body } = req.body;
-
     const resp = difficulty === DIFFICULTIES.EASY
       ? await ormCreateEasyQuestion(id, title, body)
       : difficulty === DIFFICULTIES.MEDIUM
