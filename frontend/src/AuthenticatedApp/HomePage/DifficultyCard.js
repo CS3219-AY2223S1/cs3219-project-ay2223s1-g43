@@ -11,7 +11,7 @@ const sx = {
   cardContent: { px: 4 },
   unselectedStyles: {
     '&:hover': {
-      borderColor: 'primary.dark',
+      borderColor: 'primary.border',
     }
   },
   selectedStyles: { borderColor: 'primary.main' }
