@@ -28,3 +28,9 @@ export const getQuestionValidator = [
   validateNotEmpty("id"),
   validateNumeric("id"),
 ]
+
+export const deleteQuestionValidator = [
+  difficultyValidator,
+  validateNotEmpty("id"),
+  validateNumeric("id"),
+]

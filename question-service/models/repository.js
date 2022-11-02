@@ -29,6 +29,21 @@ export function createHardQuestion(id, title, body) {
   return newQuestion;
 }
 
+export async function deleteEasyQuestion(id) {
+  const question = await EasyQuestion.findOneAndDelete({ id: id }).exec();
+  return question;
+}
+
+export async function deleteMediumQuestion(id) {
+  const question = await MediumQuestion.findOneAndDelete({ id: id }).exec();
+  return question;
+}
+
+export async function deleteHardQuestion(id) {
+  const question = await HardQuestion.findOneAndDelete({ id: id }).exec();
+  return question;
+}
+
 export async function getRandomEasyQuestion(randomNumber) {
   const questions = await EasyQuestion.find()
   return questions[Math.floor(randomNumber * questions.length)]
