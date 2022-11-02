@@ -11,9 +11,10 @@ chai.should();
 
 describe('/api/question', () => {
   after((done) => {
-    EasyQuestion.deleteMany({}, () => { done();})
-    MediumQuestion.deleteMany({}, () => { done();})
-    HardQuestion.deleteMany({}, () => { done();})
+    EasyQuestion.deleteMany({}, () => { })
+    MediumQuestion.deleteMany({}, () => { })
+    HardQuestion.deleteMany({}, () => { })
+    done();
   });
 
   describe('Create question', () => {
