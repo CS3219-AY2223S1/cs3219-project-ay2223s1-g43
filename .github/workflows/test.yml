@@ -39,3 +39,9 @@ jobs:
           cd learning-pathway
           npm install
           npm run test
+
+      - name: Run All question Tests
+        run: |
+          cd question-service
+          npm install
+          npm run test
