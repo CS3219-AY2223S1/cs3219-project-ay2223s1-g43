@@ -19,9 +19,7 @@ export const createRecordValidator = [
     throw new Error('Difficulty must be either \"EASY\", \"MEDIUM\", or \"DIFFICULT\"');
   }),
   check('question_id').notEmpty().isNumeric().custom(async (value, {req}) => {
-    console.log(value)
     const questionTitle = await validateQuestionId(req.body.question_difficulty, value, req)
-    console.log(questionTitle)
     if (questionTitle) {
       req.body.question_title = questionTitle;
       return true
