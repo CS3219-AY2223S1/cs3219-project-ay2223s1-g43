@@ -25,7 +25,7 @@ export default async function validateQuestion(req, res) {
     }
 
     if (question) {
-      return res.sendStatus(200);
+      return res.status(200).json({title: question.title});
     } else {
       return res.sendStatus(400);
     }
