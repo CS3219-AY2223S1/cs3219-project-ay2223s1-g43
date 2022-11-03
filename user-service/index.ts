@@ -38,6 +38,11 @@ router.put("/change_password",
   users.changePassword
 );
 
+router.post("/validate_user_id", 
+  body("user_id").notEmpty().isMongoId(),
+  users.validateUserId
+);
+
 app.use("/api/user", router);
 app.use("/api/user", (_, res) => {
   res.setHeader("content-type", "application/json");
