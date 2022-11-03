@@ -23,7 +23,6 @@ export function createRecord(user_id, partner_username, question_difficulty,
     code,
     code_language,
     timestamp,
-    comment: ""
   });
 }
 

@@ -1,10 +1,9 @@
 import app from '../index.js';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { DIFFICULTIES, LANGUAGES }  from "../model/constants.js";
+import { DIFFICULTIES, LANGUAGES } from "../model/constants.js";
 import mongoose from 'mongoose';
 import recordModel from '../model/record-model.js';
-import { ormCreateRecord } from '../model/record-orm.js';
 
 chai.use(chaiHttp);
 chai.should();
@@ -33,7 +32,11 @@ describe('/api/record', () => {
   };
 
   before(async () => {
-    const resp = await ormCreateRecord({validRecord});
+    const { user_id, partner_username, question_difficulty,
+      question_id, question_title, code, code_language, timestamp } = validRecord
+    const newRecord = new recordModel({user_id, partner_username, question_difficulty,
+      question_id, question_title, code, code_language, timestamp});
+    await newRecord.save();
   })
 
   after((done) => {
