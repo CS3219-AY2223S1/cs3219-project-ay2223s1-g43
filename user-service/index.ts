@@ -22,7 +22,7 @@ const router = express.Router();
 
 // Controller will contain all the User-defined Routes
 router.get("/", (_, res) => {
-  res.send("Hello World from user-service");
+  res.send("Hello World from user-service!");
 });
 router.post("/", 
   body("password").isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0}), 
