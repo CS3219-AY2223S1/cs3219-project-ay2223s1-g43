@@ -3,6 +3,7 @@ import {
   createUser,
   deleteUser,
   findUser,
+  findUserById,
   updatePassword,
   updateSession,
 } from "./repository";
@@ -67,6 +68,10 @@ export async function ormRefreshAccessToken(refreshToken: string) {
 
 export function ormFindUser(username: string) {
   return findUser(username);
+}
+
+export function ormFindUserById(userId: string) {
+  return findUserById(userId);
 }
 
 export async function ormUpdatePassword(username: string, newPassword: string) {

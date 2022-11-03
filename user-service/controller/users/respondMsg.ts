@@ -3,6 +3,7 @@ export const error_msg = {
   DATABASE_ERROR: "Database failure!",
   PASSWORD_ERROR: "Password does not meet the requirement!",
   INVALID_USER_ERROR: "Invalid user!",
+  INVALID_USER_ID_ERROR: "Invalid user ID!",
   INVALID_TOKEN_ERROR: "Invalid token!",
   MISSING_USERNAME_OR_PASSWORD_ERROR: "Username and/or Password are missing!",
   MISSING_FIELDS_ERROR: "Missing fields!",

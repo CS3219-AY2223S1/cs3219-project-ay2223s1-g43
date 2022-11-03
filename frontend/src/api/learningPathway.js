@@ -36,15 +36,5 @@ export const learningPathwayAPI = {
     } catch (err) {
       throw new ResponseException('Please try again later')
     }
-  },
-  handleDeleteRecords: async (userId) => {
-    try {
-      const res = await learningPathwayService.delete(PREFIX_RECORD_SVC + `/${userId}`);
-      if (!(res && res.status === STATUS_CODE_OKAY)) {
-        throw new Error()
-      }
-    } catch (err) {
-      throw new ResponseException('Please try again later')
-    }
-  },
+  }
 }

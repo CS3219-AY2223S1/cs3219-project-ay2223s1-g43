@@ -4,6 +4,7 @@ import getRandomQuestion from "../controllers/getRandomQuestion.js";
 import createQuestion from "../controllers/createQuestion.js";
 import getQuestion from "../controllers/getQuestion.js";
 import deleteQuestion from "../controllers/deleteQuestion.js";
+import validateQuestion from "../controllers/validateQuestion.js";
 
 const QuestionRouter = express.Router();
 
@@ -29,6 +30,11 @@ QuestionRouter.post("/:difficulty",
 QuestionRouter.delete("/:difficulty/:id",
     deleteQuestionValidator,
     deleteQuestion,
+);
+
+QuestionRouter.post("/validate/:difficulty/:id",
+    getQuestionValidator,
+    validateQuestion,
 );
 
 export default QuestionRouter

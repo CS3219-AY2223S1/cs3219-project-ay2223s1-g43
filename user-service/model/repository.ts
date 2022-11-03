@@ -25,6 +25,11 @@ export async function findUser(username: string) {
   return user;
 }
 
+export async function findUserById(userId: string) {
+  const user = await UserModel.findOne({ _id: userId }).exec();
+  return user;
+}
+
 export async function updatePassword(username: string, newPHash: string) {
   const user = await UserModel
     .findOneAndUpdate(
