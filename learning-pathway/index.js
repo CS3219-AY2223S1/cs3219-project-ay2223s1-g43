@@ -21,7 +21,7 @@ app.use(
 const router = express.Router();
 
 router.get("/", (_, res) => {
-  res.send("Hello World from learning-pathway");
+  res.send("Hello from learning-pathway");
 });
 
 router.get("/:userId",
