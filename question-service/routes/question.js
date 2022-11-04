@@ -9,7 +9,7 @@ import validateQuestion from "../controllers/validateQuestion.js";
 const QuestionRouter = express.Router();
 
 QuestionRouter.get("/", (_, res) => {
-    res.send("Hello World from question service");
+    res.send("Hello from question service");
 });
 
 QuestionRouter.get("/:difficulty/:id",
