@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - collab-server/**
+  workflow_dispatch:
 
 jobs:
   build:

@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - learning-pathway/**
+  workflow_dispatch:
 
 jobs:
   build:
