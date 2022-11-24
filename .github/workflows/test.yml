@@ -1,0 +1,48 @@
+name: Test
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        mongodb-version: [6.0]
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      - name: Run All user service Tests
+        run: |
+          cd user-service
+          npm install
+          npm run test
+      
+      - name: Run All learning pathway Tests
+        run: |
+          cd learning-pathway
+          npm install
+          npm run test
+
+      - name: Run All question Tests
+        run: |
+          cd question-service
+          npm install
+          npm run test

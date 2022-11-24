@@ -1,0 +1,12 @@
+export const DIFFICULTIES = {
+  EASY: "EASY",
+  MEDIUM: "MEDIUM",
+  HARD: "HARD"
+}
+
+export const LANGUAGES = {
+  JAVA: "JAVA",
+  JAVASCRIPT: "JAVASCRIPT",
+  PYTHON: "PYTHON"
+}
+
